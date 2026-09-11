@@ -16,6 +16,11 @@ export const translations = {
       subheadline: 'Trusted spiritual travel experiences for Hajj and Umrah — crafted with care, guided by faith.',
       bookNow: 'Book Now',
       explorePackages: 'Explore Packages',
+      badge: 'New Star Travel Agency',
+      statYears: 'Years Experience',
+      statPilgrims: 'Happy Pilgrims',
+      statPackages: 'Packages',
+      statRating: 'Rating',
     },
     search: {
       title: 'Find Your Package',
