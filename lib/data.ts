@@ -6,7 +6,8 @@
   nameAr: string;
   price: number;
   currency: string;
-  hotel: string;
+  hotelMakkah: string;
+  hotelMedina: string;
   hotelStars: number;
   airline: string;
   durationNights: number;
