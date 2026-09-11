@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLang } from '@/lib/LanguageContext';
+import { useBookings } from '@/lib/BookingsContext';
 
 interface BookingModalProps {
   isOpen: boolean;
