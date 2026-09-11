@@ -138,14 +138,17 @@ export default function Navbar() {
                   }}>{l}</button>
                 ))}
               </div>
-              <a href="#contact" onClick={() => setMenuOpen(false)} style={{
+              <button onClick={() => { setMenuOpen(false); setBookingOpen(true); }} style={{
                 marginTop: 12, textAlign: 'center', background: '#d00000', color: '#fff',
-                padding: '13px 0', borderRadius: 12, fontWeight: 700, textDecoration: 'none', fontSize: 14,
-              }}>{t.nav.bookNow}</a>
+                padding: '13px 0', borderRadius: 12, fontWeight: 700, border: 'none',
+                fontSize: 14, cursor: 'pointer', width: '100%',
+              }}>{t.nav.bookNow}</button>
             </div>
           </motion.div>
         )}
       </AnimatePresence>
+
+      <BookingModal isOpen={bookingOpen} onClose={() => setBookingOpen(false)} />
 
       <style>{`
         @media (min-width: 900px) {
