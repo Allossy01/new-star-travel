@@ -112,9 +112,9 @@ export default function Contact() {
           >
             {/* Contact info cards */}
             {[
-              { icon: '📍', label: 'Address', value: t.contact.address },
-              { icon: '📞', label: 'Phone', value: t.contact.phone2 },
-              { icon: '📧', label: 'Email', value: t.contact.email2 },
+              { icon: '📍', label: t.contact.labelAddress, value: t.contact.address },
+              { icon: '📞', label: t.contact.labelPhone, value: t.contact.phone2 },
+              { icon: '📧', label: t.contact.labelEmail, value: t.contact.email2 },
             ].map(({ icon, label, value }) => (
               <div key={label} style={{
                 display: 'flex', alignItems: 'center', gap: 16, padding: '18px 20px',
@@ -163,7 +163,7 @@ export default function Contact() {
               display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
             }}>
               <span style={{ fontSize: 32, marginBottom: 8 }}>📍</span>
-              <span style={{ color: 'rgba(255,255,255,0.35)', fontSize: 13 }}>Casablanca, Morocco</span>
+              <span style={{ color: 'rgba(255,255,255,0.35)', fontSize: 13 }}>{t.contact.mapLabel}</span>
             </div>
           </motion.div>
         </div>
