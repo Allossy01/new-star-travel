@@ -39,7 +39,7 @@ export default function AdminPage() {
     setEditingPkg(pkg);
     setPkgForm({
       nameEn: pkg.nameEn, nameFr: pkg.nameFr, nameAr: pkg.nameAr,
-      type: pkg.type, price: String(pkg.price), hotelMakkah: pkg.hotelMakkah, hotelMedina: pkg.hotelMedina,
+      type: pkg.type, price: String(pkg.price), hotelMakkah: pkg.hotelMakkah, hotelMedina: pkg.hotelMedina, returnDate: pkg.returnDate,
       hotelStars: pkg.hotelStars, airline: pkg.airline,
       durationNights: String(pkg.durationNights), durationDays: String(pkg.durationDays),
       departure: pkg.departure, image: pkg.image,
