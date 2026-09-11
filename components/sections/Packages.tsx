@@ -116,8 +116,12 @@ function PackageCard({ pkg, t, lang, onBook }: { pkg: Package; t: any; lang: str
 export default function Packages() {
   const { t, lang } = useLang();
   const [filter, setFilter] = useState<'all' | 'umrah' | 'hajj'>('all');
+  const [bookingOpen, setBookingOpen] = useState(false);
+  const [selectedPackage, setSelectedPackage] = useState('');
 
   const filtered = filter === 'all' ? packages : packages.filter(p => p.type === filter);
+
+  const handleBook = (name: string) => { setSelectedPackage(name); setBookingOpen(true); };
 
   return (
     <section id="packages" style={{ padding: '96px 0', background: '#f8f9fa' }}>
@@ -157,11 +161,13 @@ export default function Packages() {
         >
           <AnimatePresence mode="popLayout">
             {filtered.map((pkg) => (
-              <PackageCard key={pkg.id} pkg={pkg} t={t} lang={lang} />
+              <PackageCard key={pkg.id} pkg={pkg} t={t} lang={lang} onBook={handleBook} />
             ))}
           </AnimatePresence>
         </motion.div>
       </div>
+
+      <BookingModal isOpen={bookingOpen} onClose={() => setBookingOpen(false)} packageName={selectedPackage} />
     </section>
   );
 }
