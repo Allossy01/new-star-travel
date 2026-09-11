@@ -60,7 +60,7 @@ export default function AdminPage() {
     else setPkgs(ps => [...ps, newPkg]);
     setShowPkgForm(false);
     setEditingPkg(null);
-    setPkgForm({ nameEn: '', nameFr: '', nameAr: '', type: 'umrah', price: '', hotelMakkah: '', hotelMedina: '', hotelStars: 5, airline: '', durationNights: '', durationDays: '', departure: '', image: '' });
+    setPkgForm({ nameEn: '', nameFr: '', nameAr: '', type: 'umrah', price: '', hotelMakkah: '', hotelMedina: '', hotelStars: 5, airline: '', durationNights: '', durationDays: '', departure: '', returnDate: '', image: '' });
   };
 
   const navItems: { id: Tab; label: string; icon: string; count?: number }[] = [
@@ -375,7 +375,7 @@ export default function AdminPage() {
                           <div key={key} style={{ gridColumn: span ? '1 / -1' : undefined }}>
                             <label style={{ display: 'block', fontSize: 11, fontWeight: 700, color: '#64748b', textTransform: 'uppercase', letterSpacing: 0.8, marginBottom: 6 }}>{label}</label>
                             <input
-                              type={['price', 'durationNights', 'durationDays'].includes(key) ? 'number' : key === 'departure' ? 'date' : 'text'}
+                              type={['price', 'durationNights', 'durationDays'].includes(key) ? 'number' : ['departure', 'returnDate'].includes(key) ? 'date' : 'text'}
                               value={pkgForm[key as keyof typeof pkgForm] as string}
                               onChange={e => setPkgForm({ ...pkgForm, [key]: e.target.value })}
                               style={inputS}
