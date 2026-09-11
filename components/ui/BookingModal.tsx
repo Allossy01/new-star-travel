@@ -16,8 +16,7 @@ export default function BookingModal({ isOpen, onClose, packageName }: BookingMo
   const [form, setForm] = useState({
     fullName: '', phone: '', email: '', nationality: '',
     adults: '1', children: '0', packageType: packageName || '',
-    departureDate: '', returnDate: '', passportNumber: '',
-    passportExpiry: '', roomType: 'double', specialRequests: '',
+    departureDate: '', returnDate: '', roomType: 'double', specialRequests: '',
   });
 
   const update = (field: string, value: string) => setForm(f => ({ ...f, [field]: value }));
