@@ -89,7 +89,7 @@ export const translations = {
       message: 'Your Message',
       send: 'Send Message',
       whatsapp: 'Chat on WhatsApp',
-      address: '15 Rue des Martyrs, Algiers, Algeria',
+      address: 'Projet Hassan2, Zone 1, Residance 26, Hay Mohammadi, Casablanca, Morocco',
       phone2: '+212 781 350 699',
       email2: 'contact@newstartravel.dz',
     },
