@@ -303,6 +303,7 @@ export default function AdminPage() {
                     </div>
                     <div style={{ padding: '18px 20px' }}>
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 14 }}>
+                        <div style={{ fontSize: 10, color: '#94a3b8', fontWeight: 600, textTransform: 'uppercase', letterSpacing: 0.5, marginBottom: 2 }}>Starting From</div>
                         <span style={{ color: '#d00000', fontWeight: 800, fontSize: 20 }}>{pkg.price.toLocaleString()} MAD</span>
                         <span style={{ color: '#94a3b8', fontSize: 12 }}>{pkg.durationNights} nights</span>
                       </div>
