@@ -155,7 +155,6 @@ export const translations = {
       umrah: 'Omra',
       hajj: 'Hajj',
       from: 'À partir de',
-
       hotel: 'Hôtel',
       airline: 'Compagnie Aérienne',
       duration: 'Durée',
