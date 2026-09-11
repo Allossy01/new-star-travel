@@ -283,7 +283,7 @@ export default function AdminPage() {
             <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24 }}>
                 <p style={{ color: '#64748b', fontSize: 13, margin: 0 }}>{pkgs.length} packages total</p>
-                <button onClick={() => { setEditingPkg(null); setShowPkgForm(true); }} style={{
+                <button onClick={() => { setEditingPkg(null); setPkgForm({ nameEn: '', nameFr: '', nameAr: '', type: 'umrah', price: '', hotelMakkah: '', hotelMedina: '', hotelStars: 5, airline: '', durationNights: '', durationDays: '', departure: '', returnDate: '', image: '' }); setIncludes(['Round-trip flights', 'Hotel accommodation', 'Airport transfers', 'Visa assistance', 'Tour guide', 'Daily breakfast']); setNewInclude(''); setShowPkgForm(true); }} style={{
                   background: '#d00000', color: '#fff', border: 'none',
                   borderRadius: 12, padding: '11px 20px', fontSize: 13, fontWeight: 700,
                   cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 6,
