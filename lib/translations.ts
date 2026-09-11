@@ -53,6 +53,7 @@ export const translations = {
       whatsIncluded: "What's Included",
       perPerson: 'per person',
       bookThisPackage: 'Book This Package',
+      ourOffers: 'Our Offers',
     },
     whyUs: {
       title: 'Why Choose Us',
