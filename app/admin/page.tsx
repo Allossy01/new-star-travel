@@ -52,7 +52,7 @@ export default function AdminPage() {
       id: editingPkg?.id || `pkg-${Date.now()}`,
       nameEn: pkgForm.nameEn, nameFr: pkgForm.nameFr, nameAr: pkgForm.nameAr,
       type: pkgForm.type, price: Number(pkgForm.price), currency: 'MAD',
-      hotel: pkgForm.hotel, hotelStars: pkgForm.hotelStars, airline: pkgForm.airline,
+      hotelMakkah: pkgForm.hotelMakkah, hotelMedina: pkgForm.hotelMedina, hotelStars: pkgForm.hotelStars, airline: pkgForm.airline,
       durationNights: Number(pkgForm.durationNights), durationDays: Number(pkgForm.durationDays),
       departure: pkgForm.departure, image: pkgForm.image, featured: true, includes: [],
     };
@@ -60,7 +60,7 @@ export default function AdminPage() {
     else setPkgs(ps => [...ps, newPkg]);
     setShowPkgForm(false);
     setEditingPkg(null);
-    setPkgForm({ nameEn: '', nameFr: '', nameAr: '', type: 'umrah', price: '', hotel: '', hotelStars: 5, airline: '', durationNights: '', durationDays: '', departure: '', image: '' });
+    setPkgForm({ nameEn: '', nameFr: '', nameAr: '', type: 'umrah', price: '', hotelMakkah: '', hotelMedina: '', hotelStars: 5, airline: '', durationNights: '', durationDays: '', departure: '', image: '' });
   };
 
   const navItems: { id: Tab; label: string; icon: string; count?: number }[] = [
