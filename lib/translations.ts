@@ -276,7 +276,7 @@ export const translations = {
       all: 'الكل',
       umrah: 'عمرة',
       hajj: 'حج',
-      from: 'ابتداءً من',
+      from: 'يبدأ من',
       hotel: 'الفندق',
       airline: 'الخطوط الجوية',
       duration: 'المدة',

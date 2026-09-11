@@ -137,7 +137,7 @@ function DetailsModal({ pkg, lang, t, onClose, onBook }: { pkg: Package; lang: s
             {/* Price */}
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 24, padding: '16px 20px', background: '#fff8f8', borderRadius: 14, border: '1.5px solid #fee2e2' }}>
               <div>
-                <div style={{ color: '#94a3b8', fontSize: 11, fontWeight: 600, textTransform: 'uppercase', letterSpacing: 0.8 }}>Price per person</div>
+                <div style={{ color: '#94a3b8', fontSize: 11, fontWeight: 600, textTransform: 'uppercase', letterSpacing: 0.8 }}>Starting From (per person)</div>
                 <div style={{ color: '#d00000', fontWeight: 900, fontSize: 28, lineHeight: 1.1 }}>{pkg.price.toLocaleString()} MAD</div>
               </div>
               <div style={{ textAlign: 'right' }}>
