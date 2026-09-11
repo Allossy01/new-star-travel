@@ -2,7 +2,8 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLang } from '@/lib/LanguageContext';
-import { packages, type Package } from '@/lib/data';
+import { type Package } from '@/lib/data';
+import { usePackages } from '@/lib/PackagesContext';
 import BookingModal from '@/components/ui/BookingModal';
 
 function StarRating({ stars }: { stars: number }) {
@@ -198,6 +199,7 @@ function DetailsModal({ pkg, lang, t, onClose, onBook }: { pkg: Package; lang: s
 
 export default function Packages() {
   const { t, lang } = useLang();
+  const { packages } = usePackages();
   const [filter, setFilter] = useState<'all' | 'umrah' | 'hajj'>('all');
   const [bookingOpen, setBookingOpen] = useState(false);
   const [selectedPackage, setSelectedPackage] = useState('');
