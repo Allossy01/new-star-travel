@@ -43,6 +43,16 @@ export default function BookingModal({ isOpen, onClose, packageName }: BookingMo
   };
 
   const handleSubmit = () => {
+    addBooking({
+      id: `BK-${Date.now()}`,
+      customerName: form.fullName,
+      email: form.email,
+      packageName: form.packageType || packageName || 'General Inquiry',
+      travelers: Number(form.adults) + Number(form.children),
+      totalPrice: 0,
+      status: 'pending',
+      date: new Date().toISOString().split('T')[0],
+    });
     setSubmitted(true);
     setTimeout(() => {
       setSubmitted(false);
