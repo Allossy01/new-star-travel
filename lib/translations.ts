@@ -44,6 +44,11 @@ export const translations = {
       makkahHotel: '🕋 Makkah Hotel',
       medinaHotel: '🕌 Medina Hotel',
       return: 'Return',
+      startingFrom: 'Starting From (per person)',
+      duration: 'Duration',
+      whatsIncluded: "What's Included",
+      perPerson: 'per person',
+      bookThisPackage: 'Book This Package',
     },
     whyUs: {
       title: 'Why Choose Us',
