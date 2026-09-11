@@ -28,6 +28,8 @@ export default function AdminPage() {
     price: '', hotelMakkah: '', hotelMedina: '', hotelStars: 5, airline: '', durationNights: '',
     durationDays: '', departure: '', returnDate: '', image: '',
   });
+  const [includes, setIncludes] = useState<string[]>(['Round-trip flights', 'Hotel accommodation', 'Airport transfers', 'Visa assistance', 'Tour guide', 'Daily breakfast']);
+  const [newInclude, setNewInclude] = useState('');
 
   const totalRevenue = bookings.filter(b => b.status === 'paid').reduce((s, b) => s + b.totalPrice, 0);
   const filteredBookings = statusFilter === 'all' ? bookings : bookings.filter(b => b.status === statusFilter);
