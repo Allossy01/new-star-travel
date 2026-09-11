@@ -46,7 +46,7 @@ export default function Footer() {
             <h4 style={{ color: '#b8960c', fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: 2, marginBottom: 20 }}>{t.footer.followUs}</h4>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
               {[
-                { name: 'WhatsApp', href: 'https://wa.me/213555123456', dot: '#25d366' },
+                { name: 'WhatsApp', href: 'https://wa.me/212781350699', dot: '#25d366' },
                 { name: 'Instagram', href: '#', dot: '#E1306C' },
                 { name: 'Facebook', href: '#', dot: '#1877F2' },
               ].map(({ name, href, dot }) => (
