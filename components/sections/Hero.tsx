@@ -95,21 +95,6 @@ export default function Hero() {
           </motion.a>
         </motion.div>
 
-        {/* Stats */}
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1, delay: 1.2 }}
-          style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: 40, marginTop: 64 }}>
-          {[
-            { num: '15+', label: t.hero.statYears },
-            { num: '10K+', label: t.hero.statPilgrims },
-            { num: '50+', label: t.hero.statPackages },
-            { num: '4.9★', label: t.hero.statRating },
-          ].map((stat) => (
-            <div key={stat.label} style={{ textAlign: 'center' }}>
-              <div style={{ fontSize: 26, fontWeight: 800, background: 'linear-gradient(135deg, #b8960c, #d4af37)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>{stat.num}</div>
-              <div style={{ color: 'rgba(255,255,255,0.45)', fontSize: 12, marginTop: 2 }}>{stat.label}</div>
-            </div>
-          ))}
-        </motion.div>
       </div>
 
       {/* Scroll indicator */}
