@@ -215,7 +215,7 @@ export default function Packages() {
     <section id="packages" style={{ padding: '96px 0', background: '#f8f9fa' }}>
       <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 32px' }}>
         <div style={{ textAlign: 'center', marginBottom: 56 }}>
-          <span style={{ color: '#d00000', fontSize: 12, fontWeight: 700, textTransform: 'uppercase', letterSpacing: 3, display: 'block', marginBottom: 8 }}>Our Offers</span>
+          <span style={{ color: '#d00000', fontSize: 12, fontWeight: 700, textTransform: 'uppercase', letterSpacing: 3, display: 'block', marginBottom: 8 }}>{t.packages.ourOffers}</span>
           <h2 style={{ fontSize: 'clamp(28px, 4vw, 44px)', fontWeight: 800, color: '#001d3d', marginBottom: 12 }}>{t.packages.title}</h2>
           <p style={{ color: '#888', maxWidth: 520, margin: '0 auto 32px' }}>{t.packages.subtitle}</p>
           <div style={{ display: 'flex', justifyContent: 'center', gap: 8 }}>
