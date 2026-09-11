@@ -309,9 +309,9 @@ export default function AdminPage() {
                       </div>
                       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8, marginBottom: 16 }}>
                         {[
-                          { label: 'Hotel', value: pkg.hotel },
+                          { label: '🕋 Makkah', value: pkg.hotelMakkah },
+                          { label: '🕌 Medina', value: pkg.hotelMedina },
                           { label: 'Airline', value: pkg.airline },
-                          { label: 'Stars', value: '★'.repeat(pkg.hotelStars) },
                           { label: 'Departure', value: pkg.departure },
                         ].map(({ label, value }) => (
                           <div key={label} style={{ background: '#f8fafc', borderRadius: 8, padding: '8px 10px' }}>
