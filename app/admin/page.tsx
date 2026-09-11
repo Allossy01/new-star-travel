@@ -1,7 +1,8 @@
 'use client';
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { packages as initialPackages, sampleBookings, type Package, type Booking } from '@/lib/data';
+import { packages as initialPackages, type Package, type Booking } from '@/lib/data';
+import { useBookings } from '@/lib/BookingsContext';
 
 type Tab = 'dashboard' | 'packages' | 'bookings';
 type BookingStatus = Booking['status'];
@@ -17,7 +18,7 @@ export default function AdminPage() {
   const [tab, setTab] = useState<Tab>('dashboard');
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [pkgs, setPkgs] = useState<Package[]>(initialPackages);
-  const [bookings, setBookings] = useState<Booking[]>(sampleBookings);
+  const { bookings, updateBookingStatus: ctxUpdateStatus } = useBookings();
   const [statusFilter, setStatusFilter] = useState<BookingStatus | 'all'>('all');
   const [showPkgForm, setShowPkgForm] = useState(false);
   const [editingPkg, setEditingPkg] = useState<Package | null>(null);
