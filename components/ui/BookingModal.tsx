@@ -45,7 +45,7 @@ export default function BookingModal({ isOpen, onClose, packageName }: BookingMo
     setTimeout(() => {
       setSubmitted(false);
       setStep(1);
-      setForm({ fullName: '', phone: '', email: '', nationality: '', adults: '1', children: '0', packageType: packageName || '', departureDate: '', returnDate: '', passportNumber: '', passportExpiry: '', roomType: 'double', specialRequests: '' });
+      setForm({ fullName: '', phone: '', email: '', nationality: '', adults: '1', children: '0', packageType: packageName || '', departureDate: '', returnDate: '', roomType: 'double', specialRequests: '' });
       onClose();
     }, 3000);
   };
@@ -125,12 +125,12 @@ export default function BookingModal({ isOpen, onClose, packageName }: BookingMo
               <>
                 {/* Step indicator */}
                 <div style={{ display: 'flex', gap: 8, marginBottom: 28 }}>
-                  {[1, 2, 3].map(s => (
+                  {[1, 2].map(s => (
                     <div key={s} style={{ flex: 1, height: 4, borderRadius: 99, background: s <= step ? '#d00000' : 'rgba(255,255,255,0.12)', transition: 'background 0.3s' }} />
                   ))}
                 </div>
                 <p style={{ color: 'rgba(255,255,255,0.35)', fontSize: 12, marginBottom: 20, marginTop: -18 }}>
-                  Step {step} of 3 — {step === 1 ? 'Personal Info' : step === 2 ? 'Trip Details' : 'Passport & Extras'}
+                  Step {step} of 2 — {step === 1 ? 'Personal Info' : 'Trip Details'}
                 </p>
 
                 {/* Step 1 — Personal Info */}
