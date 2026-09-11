@@ -52,6 +52,7 @@ function PackageCard({ pkg, t, lang, onBook, onDetails }: { pkg: Package; t: any
             { label: t.packages.airline, value: pkg.airline },
             { label: t.packages.duration, value: `${pkg.durationNights} ${t.packages.nights}` },
             { label: t.packages.departure, value: pkg.departure },
+            { label: 'Return', value: pkg.returnDate },
           ].map(({ label, value }) => (
             <div key={label} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '8px 0', borderBottom: '1px solid #f0f0f0' }}>
               <span style={{ color: '#b8960c', fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: 0.8, flexShrink: 0 }}>{label}</span>

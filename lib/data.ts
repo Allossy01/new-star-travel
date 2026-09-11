@@ -101,6 +101,7 @@ export const packages: Package[] = [
     durationNights: 21,
     durationDays: 22,
     departure: '2027-05-15',
+    returnDate: '2027-06-05',
     image: 'https://images.unsplash.com/photo-1570168007204-dfb528c6958f?w=800&q=80',
     featured: true,
     includes: ['Round-trip flights', '5-star hotel in Makkah & Madinah', 'Hajj visa', 'All transfers', 'Professional guide', 'Meals included', 'Ihram clothing', '24/7 VIP support'],
