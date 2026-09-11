@@ -395,6 +395,7 @@ export const translations = {
       whatsIncluded: 'ما يشمله البرنامج',
       perPerson: 'للشخص',
       bookThisPackage: 'احجز هذه الباقة',
+      ourOffers: 'عروضنا',
     },
     whyUs: {
       title: 'لماذا تختارنا',
