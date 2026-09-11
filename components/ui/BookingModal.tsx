@@ -12,6 +12,7 @@ interface BookingModalProps {
 
 export default function BookingModal({ isOpen, onClose, packageName }: BookingModalProps) {
   const { t } = useLang();
+  const { addBooking } = useBookings();
   const [step, setStep] = useState(1);
   const [submitted, setSubmitted] = useState(false);
   const [form, setForm] = useState({
