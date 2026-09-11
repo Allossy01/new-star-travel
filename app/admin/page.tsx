@@ -455,6 +455,7 @@ export default function AdminPage() {
                       <div>
                         <div style={{ fontWeight: 700, color: '#001d3d', fontSize: 14 }}>{b.customerName}</div>
                         <div style={{ color: '#94a3b8', fontSize: 11, marginTop: 2 }}>{b.email}</div>
+                        {b.phone && <div style={{ color: '#64748b', fontSize: 11 }}>{b.phone}</div>}
                       </div>
                     </div>
 
