@@ -174,6 +174,11 @@ export const translations = {
       makkahHotel: '🕋 Hôtel La Mecque',
       medinaHotel: '🕌 Hôtel Médine',
       return: 'Retour',
+      startingFrom: 'À partir de (par personne)',
+      duration: 'Durée',
+      whatsIncluded: 'Ce qui est inclus',
+      perPerson: 'par personne',
+      bookThisPackage: 'Réserver ce forfait',
     },
     whyUs: {
       title: 'Pourquoi Nous Choisir',
@@ -299,6 +304,11 @@ export const translations = {
       makkahHotel: '🕋 فندق مكة',
       medinaHotel: '🕌 فندق المدينة',
       return: 'العودة',
+      startingFrom: 'يبدأ من (للشخص)',
+      duration: 'المدة',
+      whatsIncluded: 'ما يشمله البرنامج',
+      perPerson: 'للشخص',
+      bookThisPackage: 'احجز هذه الباقة',
     },
     whyUs: {
       title: 'لماذا تختارنا',
