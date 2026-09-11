@@ -91,7 +91,7 @@ export const translations = {
       whatsapp: 'Chat on WhatsApp',
       address: 'Projet Hassan2, Zone 1, Residance 26, Hay Mohammadi, Casablanca, Morocco',
       phone2: '+212 781 350 699',
-      email2: 'contact@newstartravel.dz',
+      email2: 'startravelsn@gmail.com',
     },
     footer: {
       tagline: 'Your trusted partner for Hajj & Umrah since 2010',
@@ -213,7 +213,7 @@ export const translations = {
       whatsapp: 'Discuter sur WhatsApp',
       address: 'Projet Hassan2, Zone 1, Résidence 26, Hay Mohammadi, Casablanca, Maroc',
       phone2: '+212 781 350 699',
-      email2: 'contact@newstartravel.dz',
+      email2: 'startravelsn@gmail.com',
     },
     footer: {
       tagline: 'Votre partenaire de confiance pour Hajj et Omra depuis 2010',
@@ -335,7 +335,7 @@ export const translations = {
       whatsapp: 'تواصل عبر واتساب',
       address: 'مشروع الحسن الثاني، المنطقة 1، الإقامة 26، حي محمدي، الدار البيضاء، المغرب',
       phone2: '+212 781 350 699',
-      email2: 'contact@newstartravel.dz',
+      email2: 'startravelsn@gmail.com',
     },
     footer: {
       tagline: 'شريكك الموثوق للحج والعمرة منذ 2010',
