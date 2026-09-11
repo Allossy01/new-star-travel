@@ -313,6 +313,7 @@ export default function AdminPage() {
                           { label: '🕌 Medina', value: pkg.hotelMedina },
                           { label: 'Airline', value: pkg.airline },
                           { label: 'Departure', value: pkg.departure },
+                          { label: 'Return', value: pkg.returnDate },
                         ].map(({ label, value }) => (
                           <div key={label} style={{ background: '#f8fafc', borderRadius: 8, padding: '8px 10px' }}>
                             <div style={{ fontSize: 10, color: '#94a3b8', fontWeight: 600, textTransform: 'uppercase', letterSpacing: 0.5 }}>{label}</div>
