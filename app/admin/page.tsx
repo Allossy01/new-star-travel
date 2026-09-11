@@ -52,7 +52,7 @@ export default function AdminPage() {
       id: editingPkg?.id || `pkg-${Date.now()}`,
       nameEn: pkgForm.nameEn, nameFr: pkgForm.nameFr, nameAr: pkgForm.nameAr,
       type: pkgForm.type, price: Number(pkgForm.price), currency: 'MAD',
-      hotelMakkah: pkgForm.hotelMakkah, hotelMedina: pkgForm.hotelMedina, hotelStars: pkgForm.hotelStars, airline: pkgForm.airline,
+      hotelMakkah: pkgForm.hotelMakkah, hotelMedina: pkgForm.hotelMedina, hotelStars: pkgForm.hotelStars, airline: pkgForm.airline, returnDate: pkgForm.returnDate,
       durationNights: Number(pkgForm.durationNights), durationDays: Number(pkgForm.durationDays),
       departure: pkgForm.departure, image: pkgForm.image, featured: true, includes: [],
     };
@@ -369,6 +369,7 @@ export default function AdminPage() {
                           { key: 'durationNights', label: 'Nights', span: false },
                           { key: 'durationDays', label: 'Days', span: false },
                           { key: 'departure', label: 'Departure Date', span: false },
+                          { key: 'returnDate', label: 'Return Date', span: false },
                           { key: 'image', label: 'Image URL', span: true },
                         ].map(({ key, label, span }) => (
                           <div key={key} style={{ gridColumn: span ? '1 / -1' : undefined }}>
