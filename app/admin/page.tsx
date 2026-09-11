@@ -24,7 +24,7 @@ export default function AdminPage() {
   const [editingPkg, setEditingPkg] = useState<Package | null>(null);
   const [pkgForm, setPkgForm] = useState({
     nameEn: '', nameFr: '', nameAr: '', type: 'umrah' as 'umrah' | 'hajj',
-    price: '', hotel: '', hotelStars: 5, airline: '', durationNights: '',
+    price: '', hotelMakkah: '', hotelMedina: '', hotelStars: 5, airline: '', durationNights: '',
     durationDays: '', departure: '', image: '',
   });
 
@@ -39,7 +39,7 @@ export default function AdminPage() {
     setEditingPkg(pkg);
     setPkgForm({
       nameEn: pkg.nameEn, nameFr: pkg.nameFr, nameAr: pkg.nameAr,
-      type: pkg.type, price: String(pkg.price), hotel: pkg.hotel,
+      type: pkg.type, price: String(pkg.price), hotelMakkah: pkg.hotelMakkah, hotelMedina: pkg.hotelMedina,
       hotelStars: pkg.hotelStars, airline: pkg.airline,
       durationNights: String(pkg.durationNights), durationDays: String(pkg.durationDays),
       departure: pkg.departure, image: pkg.image,
