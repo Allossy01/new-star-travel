@@ -32,7 +32,7 @@ export const translations = {
       all: 'All',
       umrah: 'Umrah',
       hajj: 'Hajj',
-      from: 'From',
+      from: 'Starting From',
       hotel: 'Hotel',
       airline: 'Airline',
       duration: 'Duration',
@@ -155,6 +155,7 @@ export const translations = {
       umrah: 'Omra',
       hajj: 'Hajj',
       from: 'À partir de',
+
       hotel: 'Hôtel',
       airline: 'Compagnie Aérienne',
       duration: 'Durée',
