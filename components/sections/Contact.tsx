@@ -155,27 +155,6 @@ export default function Contact() {
               {t.contact.whatsapp}
             </a>
 
-            {/* Social */}
-            <div style={{ display: 'flex', gap: 12 }}>
-              {[
-                { name: 'Instagram', color: '#E1306C', icon: '📷' },
-                { name: 'Facebook', color: '#1877F2', icon: '👤' },
-              ].map(({ name, color, icon }) => (
-                <a key={name} href="#" style={{
-                  flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  gap: 8, padding: '13px 0', borderRadius: 12, color: '#fff',
-                  textDecoration: 'none', fontSize: 14, fontWeight: 600,
-                  background: color + '22', border: `1px solid ${color}44`,
-                  transition: 'transform 0.2s',
-                }}
-                  onMouseEnter={e => (e.currentTarget as HTMLElement).style.transform = 'scale(1.04)'}
-                  onMouseLeave={e => (e.currentTarget as HTMLElement).style.transform = 'scale(1)'}
-                >
-                  <span>{icon}</span> {name}
-                </a>
-              ))}
-            </div>
-
             {/* Map placeholder */}
             <div style={{
               borderRadius: 16, height: 160, overflow: 'hidden',
@@ -184,7 +163,7 @@ export default function Contact() {
               display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
             }}>
               <span style={{ fontSize: 32, marginBottom: 8 }}>📍</span>
-              <span style={{ color: 'rgba(255,255,255,0.35)', fontSize: 13 }}>Algiers, Algeria</span>
+              <span style={{ color: 'rgba(255,255,255,0.35)', fontSize: 13 }}>Casablanca, Morocco</span>
             </div>
           </motion.div>
         </div>
