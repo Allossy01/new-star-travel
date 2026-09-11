@@ -166,6 +166,9 @@ export const translations = {
       bookNow: 'Réserver',
       nights: 'nuits',
       days: 'jours',
+      makkahHotel: '🕋 Hôtel La Mecque',
+      medinaHotel: '🕌 Hôtel Médine',
+      return: 'Retour',
     },
     whyUs: {
       title: 'Pourquoi Nous Choisir',
@@ -288,6 +291,9 @@ export const translations = {
       bookNow: 'احجز الآن',
       nights: 'ليلة',
       days: 'أيام',
+      makkahHotel: '🕋 فندق مكة',
+      medinaHotel: '🕌 فندق المدينة',
+      return: 'العودة',
     },
     whyUs: {
       title: 'لماذا تختارنا',
