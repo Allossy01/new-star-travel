@@ -13,6 +13,7 @@
   durationNights: number;
   durationDays: number;
   departure: string;
+  returnDate: string;
   image: string;
   featured: boolean;
   includes: string[];
