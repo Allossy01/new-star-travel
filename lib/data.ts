@@ -34,8 +34,8 @@ export interface Booking {
   id: string;
   customerName: string;
   email: string;
-  phone: string;
-  packageId: string;
+  phone?: string;
+  packageId?: string;
   packageName: string;
   travelers: number;
   totalPrice: number;

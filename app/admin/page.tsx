@@ -31,8 +31,7 @@ export default function AdminPage() {
   const totalRevenue = bookings.filter(b => b.status === 'paid').reduce((s, b) => s + b.totalPrice, 0);
   const filteredBookings = statusFilter === 'all' ? bookings : bookings.filter(b => b.status === statusFilter);
 
-  const updateBookingStatus = (id: string, status: BookingStatus) =>
-    setBookings(bs => bs.map(b => b.id === id ? { ...b, status } : b));
+  const updateBookingStatus = (id: string, status: BookingStatus) => ctxUpdateStatus(id, status);
 
   const deletePkg = (id: string) => setPkgs(ps => ps.filter(p => p.id !== id));
 
