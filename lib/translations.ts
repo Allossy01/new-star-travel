@@ -224,6 +224,7 @@ export const translations = {
       whatsIncluded: 'Ce qui est inclus',
       perPerson: 'par personne',
       bookThisPackage: 'Réserver ce forfait',
+      ourOffers: 'Nos Offres',
     },
     whyUs: {
       title: 'Pourquoi Nous Choisir',
