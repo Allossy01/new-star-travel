@@ -47,6 +47,8 @@ export default function AdminPage() {
       durationNights: String(pkg.durationNights), durationDays: String(pkg.durationDays),
       departure: pkg.departure, image: pkg.image,
     });
+    setIncludes(pkg.includes && pkg.includes.length > 0 ? [...pkg.includes] : ['Round-trip flights', 'Hotel accommodation', 'Airport transfers', 'Visa assistance', 'Tour guide', 'Daily breakfast']);
+    setNewInclude('');
     setShowPkgForm(true);
   };
 
@@ -57,13 +59,15 @@ export default function AdminPage() {
       type: pkgForm.type, price: Number(pkgForm.price), currency: 'MAD',
       hotelMakkah: pkgForm.hotelMakkah, hotelMedina: pkgForm.hotelMedina, hotelStars: pkgForm.hotelStars, airline: pkgForm.airline, returnDate: pkgForm.returnDate,
       durationNights: Number(pkgForm.durationNights), durationDays: Number(pkgForm.durationDays),
-      departure: pkgForm.departure, image: pkgForm.image, featured: true, includes: [],
+      departure: pkgForm.departure, image: pkgForm.image, featured: true, includes,
     };
     if (editingPkg) updatePackage(newPkg);
     else addPackage(newPkg);
     setShowPkgForm(false);
     setEditingPkg(null);
     setPkgForm({ nameEn: '', nameFr: '', nameAr: '', type: 'umrah', price: '', hotelMakkah: '', hotelMedina: '', hotelStars: 5, airline: '', durationNights: '', durationDays: '', departure: '', returnDate: '', image: '' });
+    setIncludes(['Round-trip flights', 'Hotel accommodation', 'Airport transfers', 'Visa assistance', 'Tour guide', 'Daily breakfast']);
+    setNewInclude('');
   };
 
   const navItems: { id: Tab; label: string; icon: string; count?: number }[] = [
