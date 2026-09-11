@@ -1,6 +1,7 @@
 'use client';
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { packages as initialPackages, type Package } from './data';
+import { supabase } from './supabase';
 
 interface PackagesContextType {
   packages: Package[];
@@ -11,37 +12,50 @@ interface PackagesContextType {
 
 const PackagesContext = createContext<PackagesContextType | null>(null);
 
-const STORAGE_KEY = 'nst_packages';
-
 export function PackagesProvider({ children }: { children: ReactNode }) {
   const [packages, setPackages] = useState<Package[]>(initialPackages);
-  const [loaded, setLoaded] = useState(false);
 
+  // Load from Supabase on mount — shared across all devices
   useEffect(() => {
-    try {
-      const stored = localStorage.getItem(STORAGE_KEY);
-      if (stored) {
-        const parsed: Package[] = JSON.parse(stored);
-        if (Array.isArray(parsed) && parsed.length > 0) {
-          setPackages(parsed);
+    supabase
+      .from('packages')
+      .select('data')
+      .order('created_at')
+      .then(({ data, error }) => {
+        if (error || !data) return;
+        if (data.length === 0) {
+          // Seed database with default packages on first run
+          const rows = initialPackages.map(pkg => ({ id: pkg.id, data: pkg }));
+          supabase.from('packages').insert(rows).then(() => {
+            setPackages(initialPackages);
+          });
+        } else {
+          setPackages(data.map((row: { data: Package }) => row.data));
         }
-      }
-    } catch { /* keep initialPackages */ }
-    setLoaded(true);
+      });
   }, []);
 
-  const save = (updated: Package[]) => {
+  const addPackage = (pkg: Package) => {
+    const updated = [...packages, pkg];
     setPackages(updated);
-    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(updated)); } catch { /* ignore */ }
+    supabase.from('packages').insert({ id: pkg.id, data: pkg });
   };
 
-  const addPackage = (pkg: Package) => save([...packages, pkg]);
-  const updatePackage = (pkg: Package) => save(packages.map(p => p.id === pkg.id ? pkg : p));
-  const deletePackage = (id: string) => save(packages.filter(p => p.id !== id));
+  const updatePackage = (pkg: Package) => {
+    const updated = packages.map(p => p.id === pkg.id ? pkg : p);
+    setPackages(updated);
+    supabase.from('packages').update({ data: pkg }).eq('id', pkg.id);
+  };
+
+  const deletePackage = (id: string) => {
+    const updated = packages.filter(p => p.id !== id);
+    setPackages(updated);
+    supabase.from('packages').delete().eq('id', id);
+  };
 
   return (
     <PackagesContext.Provider value={{ packages, addPackage, updatePackage, deletePackage }}>
-      {loaded ? children : children}
+      {children}
     </PackagesContext.Provider>
   );
 }
