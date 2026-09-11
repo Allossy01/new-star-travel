@@ -234,7 +234,7 @@ export default function AdminPage() {
                   <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13 }}>
                     <thead>
                       <tr style={{ background: '#f8fafc' }}>
-                        {['Customer', 'Package', 'Travelers', 'Total', 'Status'].map(h => (
+                        {['Customer', 'Package', 'Travelers', 'Starting From', 'Status'].map(h => (
                           <th key={h} style={{ textAlign: 'left', padding: '12px 20px', color: '#94a3b8', fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: 0.8 }}>{h}</th>
                         ))}
                       </tr>
@@ -362,7 +362,7 @@ export default function AdminPage() {
                           { key: 'nameEn', label: 'Package Name (EN)', span: false },
                           { key: 'nameFr', label: 'Package Name (FR)', span: false },
                           { key: 'nameAr', label: 'Package Name (AR)', span: true },
-                          { key: 'price', label: 'Price (MAD)', span: false },
+                          { key: 'price', label: 'Starting From (MAD)', span: false },
                           { key: 'hotel', label: 'Hotel Name', span: false },
                           { key: 'airline', label: 'Airline', span: false },
                           { key: 'durationNights', label: 'Nights', span: false },
