@@ -30,12 +30,19 @@ export default function Footer() {
           <div>
             <h4 style={{ color: '#b8960c', fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: 2, marginBottom: 20 }}>{t.footer.quickLinks}</h4>
             <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: 10 }}>
-              {[t.nav.home, t.nav.umrah, t.nav.hajj, t.nav.destinations, t.nav.about, t.nav.contact].map((link) => (
-                <li key={link}>
-                  <a href="#" style={{ color: 'rgba(255,255,255,0.45)', fontSize: 14, textDecoration: 'none', transition: 'color 0.2s' }}
+              {[
+                { label: t.nav.home, href: '#home' },
+                { label: t.nav.umrah, href: '#packages' },
+                { label: t.nav.hajj, href: '#packages' },
+                { label: t.nav.destinations, href: '#packages' },
+                { label: t.nav.about, href: '#why-us' },
+                { label: t.nav.contact, href: '#contact' },
+              ].map(({ label, href }) => (
+                <li key={label}>
+                  <a href={href} style={{ color: 'rgba(255,255,255,0.45)', fontSize: 14, textDecoration: 'none', transition: 'color 0.2s' }}
                     onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = '#fff'}
                     onMouseLeave={e => (e.currentTarget as HTMLElement).style.color = 'rgba(255,255,255,0.45)'}
-                  >{link}</a>
+                  >{label}</a>
                 </li>
               ))}
             </ul>
