@@ -39,7 +39,7 @@ export default function Contact() {
           viewport={{ once: true }}
           transition={{ duration: 0.7 }}
         >
-          <span style={{ color: '#b8960c', fontSize: 12, fontWeight: 700, textTransform: 'uppercase', letterSpacing: 3, display: 'block', marginBottom: 8 }}>Get In Touch</span>
+          <span style={{ color: '#b8960c', fontSize: 12, fontWeight: 700, textTransform: 'uppercase', letterSpacing: 3, display: 'block', marginBottom: 8 }}>{t.contact.getInTouch}</span>
           <h2 style={{ fontSize: 'clamp(28px, 4vw, 44px)', fontWeight: 800, color: '#fff', marginBottom: 12 }}>{t.contact.title}</h2>
           <p style={{ color: 'rgba(255,255,255,0.45)', margin: 0 }}>{t.contact.subtitle}</p>
         </motion.div>
@@ -98,7 +98,7 @@ export default function Contact() {
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
-              {sent ? '✓ Message Sent!' : t.contact.send}
+              {sent ? t.contact.messageSent : t.contact.send}
             </motion.button>
           </motion.form>
 
