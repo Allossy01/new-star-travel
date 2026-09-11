@@ -187,6 +187,11 @@ export const translations = {
       subheadline: 'Des expériences de voyage spirituel de confiance pour le Hajj et l\'Omra — conçues avec soin, guidées par la foi.',
       bookNow: 'Réserver Maintenant',
       explorePackages: 'Explorer les Forfaits',
+      badge: 'Agence New Star Travel',
+      statYears: 'Ans d\'Expérience',
+      statPilgrims: 'Pèlerins Heureux',
+      statPackages: 'Forfaits',
+      statRating: 'Note',
     },
     search: {
       title: 'Trouver Votre Forfait',
