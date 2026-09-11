@@ -315,7 +315,7 @@ export default function AdminPage() {
                         ].map(({ label, value }) => (
                           <div key={label} style={{ background: '#f8fafc', borderRadius: 8, padding: '8px 10px' }}>
                             <div style={{ fontSize: 10, color: '#94a3b8', fontWeight: 600, textTransform: 'uppercase', letterSpacing: 0.5 }}>{label}</div>
-                            <div style={{ fontSize: 12, color: '#001d3d', fontWeight: 600, marginTop: 2, color: label === 'Stars' ? '#b8960c' : '#001d3d' }}>{value}</div>
+                            <div style={{ fontSize: 12, fontWeight: 600, marginTop: 2, color: label === 'Stars' ? '#b8960c' : '#001d3d' }}>{value}</div>
                           </div>
                         ))}
                       </div>
