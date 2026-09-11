@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLang } from '@/lib/LanguageContext';
 import { packages, type Package } from '@/lib/data';
+import BookingModal from '@/components/ui/BookingModal';
 
 function StarRating({ stars }: { stars: number }) {
   return (
@@ -14,7 +15,7 @@ function StarRating({ stars }: { stars: number }) {
   );
 }
 
-function PackageCard({ pkg, t, lang }: { pkg: Package; t: any; lang: string }) {
+function PackageCard({ pkg, t, lang, onBook }: { pkg: Package; t: any; lang: string; onBook: (name: string) => void }) {
   const name = lang === 'ar' ? pkg.nameAr : lang === 'fr' ? pkg.nameFr : pkg.nameEn;
 
   return (
