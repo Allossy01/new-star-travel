@@ -41,18 +41,8 @@ export default function Navbar() {
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: 72 }}>
 
           {/* Logo */}
-          <a href="#home" style={{ display: 'flex', alignItems: 'center', gap: 10, textDecoration: 'none' }}>
-            <div style={{
-              width: 38, height: 38, borderRadius: '50%',
-              background: 'linear-gradient(135deg, #d00000, #b8960c)',
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
-              color: '#fff', fontWeight: 700, fontSize: 16, flexShrink: 0,
-              boxShadow: '0 4px 12px rgba(208,0,0,0.4)',
-            }}>★</div>
-            <div>
-              <div style={{ color: '#fff', fontWeight: 800, fontSize: 16, lineHeight: 1.1 }}>New Star</div>
-              <div style={{ color: '#b8960c', fontSize: 10, letterSpacing: 3, textTransform: 'uppercase' }}>Travel</div>
-            </div>
+          <a href="#home" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
+            <img src="/logo.png" alt="New Star Travel" style={{ height: 52, width: 'auto', objectFit: 'contain', display: 'block' }} />
           </a>
 
           {/* Desktop links */}

@@ -15,17 +15,8 @@ export default function Footer() {
 
           {/* Brand */}
           <div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 16 }}>
-              <div style={{
-                width: 42, height: 42, borderRadius: '50%',
-                background: 'linear-gradient(135deg, #d00000, #b8960c)',
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-                fontSize: 18, color: '#fff', fontWeight: 700,
-              }}>★</div>
-              <div>
-                <div style={{ fontWeight: 700, fontSize: 17, lineHeight: 1.2 }}>New Star</div>
-                <div style={{ color: '#b8960c', fontSize: 11, letterSpacing: 3, textTransform: 'uppercase' }}>Travel</div>
-              </div>
+            <div style={{ marginBottom: 16 }}>
+              <img src="/logo.png" alt="New Star Travel" style={{ height: 56, width: 'auto', objectFit: 'contain' }} />
             </div>
             <p style={{ color: 'rgba(255,255,255,0.38)', fontSize: 13, lineHeight: 1.7, marginBottom: 20 }}>{t.footer.tagline}</p>
             {/* Rating */}
