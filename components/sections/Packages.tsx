@@ -175,7 +175,9 @@ function DetailsModal({ pkg, lang, t, onClose, onBook }: { pkg: Package; lang: s
                   {pkg.includes.map(item => (
                     <div key={item} style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
                       <span style={{ width: 20, height: 20, borderRadius: '50%', background: '#f0fdf4', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 11, flexShrink: 0 }}>✓</span>
-                      <span style={{ color: '#475569', fontSize: 13 }}>{item}</span>
+                      <span style={{ color: '#475569', fontSize: 13 }}>
+                        {(t.includes as Record<string, string>)[item] ?? item}
+                      </span>
                     </div>
                   ))}
                 </div>
