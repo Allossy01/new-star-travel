@@ -82,16 +82,16 @@ export default function Navbar() {
               ))}
             </div>
 
-            <a href="#contact" style={{
+            <button onClick={() => setBookingOpen(true)} style={{
               display: 'none',
               background: '#d00000', color: '#fff', padding: '9px 20px',
-              borderRadius: 99, fontSize: 13, fontWeight: 700, textDecoration: 'none',
-              boxShadow: '0 4px 16px rgba(208,0,0,0.4)', transition: 'all 0.2s',
+              borderRadius: 99, fontSize: 13, fontWeight: 700, border: 'none',
+              boxShadow: '0 4px 16px rgba(208,0,0,0.4)', transition: 'all 0.2s', cursor: 'pointer',
             }}
               className="book-btn"
               onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = '#b00000'}
               onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = '#d00000'}
-            >{t.nav.bookNow}</a>
+            >{t.nav.bookNow}</button>
 
             {/* Hamburger */}
             <button
