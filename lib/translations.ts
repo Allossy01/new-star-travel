@@ -90,7 +90,7 @@ export const translations = {
       send: 'Send Message',
       whatsapp: 'Chat on WhatsApp',
       address: '15 Rue des Martyrs, Algiers, Algeria',
-      phone2: '+213 555 123 456',
+      phone2: '+212 781 350 699',
       email2: 'contact@newstartravel.dz',
     },
     footer: {
@@ -212,7 +212,7 @@ export const translations = {
       send: 'Envoyer',
       whatsapp: 'Discuter sur WhatsApp',
       address: '15 Rue des Martyrs, Alger, Algérie',
-      phone2: '+213 555 123 456',
+      phone2: '+212 781 350 699',
       email2: 'contact@newstartravel.dz',
     },
     footer: {
@@ -334,7 +334,7 @@ export const translations = {
       send: 'إرسال',
       whatsapp: 'تواصل عبر واتساب',
       address: '15 شارع الشهداء، الجزائر العاصمة',
-      phone2: '+213 555 123 456',
+      phone2: '+212 781 350 699',
       email2: 'contact@newstartravel.dz',
     },
     footer: {
