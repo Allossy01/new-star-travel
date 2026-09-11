@@ -25,7 +25,7 @@ export default function AdminPage() {
   const [pkgForm, setPkgForm] = useState({
     nameEn: '', nameFr: '', nameAr: '', type: 'umrah' as 'umrah' | 'hajj',
     price: '', hotelMakkah: '', hotelMedina: '', hotelStars: 5, airline: '', durationNights: '',
-    durationDays: '', departure: '', image: '',
+    durationDays: '', departure: '', returnDate: '', image: '',
   });
 
   const totalRevenue = bookings.filter(b => b.status === 'paid').reduce((s, b) => s + b.totalPrice, 0);

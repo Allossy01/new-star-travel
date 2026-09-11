@@ -155,6 +155,7 @@ function DetailsModal({ pkg, lang, t, onClose, onBook }: { pkg: Package; lang: s
                 { icon: '🕌', label: 'Medina Hotel', value: pkg.hotelMedina },
                 { icon: '✈️', label: 'Airline', value: pkg.airline },
                 { icon: '📅', label: 'Departure', value: pkg.departure },
+                { icon: '🔙', label: 'Return', value: pkg.returnDate },
                 { icon: '🌙', label: 'Duration', value: `${pkg.durationNights} nights / ${pkg.durationDays} days` },
               ].map(({ icon, label, value }) => (
                 <div key={label} style={{ background: '#f8fafc', borderRadius: 12, padding: '14px 16px' }}>
