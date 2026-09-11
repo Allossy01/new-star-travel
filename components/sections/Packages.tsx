@@ -140,24 +140,24 @@ function DetailsModal({ pkg, lang, t, onClose, onBook }: { pkg: Package; lang: s
             {/* Price */}
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 24, padding: '16px 20px', background: '#fff8f8', borderRadius: 14, border: '1.5px solid #fee2e2' }}>
               <div>
-                <div style={{ color: '#94a3b8', fontSize: 11, fontWeight: 600, textTransform: 'uppercase', letterSpacing: 0.8 }}>Starting From (per person)</div>
+                <div style={{ color: '#94a3b8', fontSize: 11, fontWeight: 600, textTransform: 'uppercase', letterSpacing: 0.8 }}>{t.packages.startingFrom}</div>
                 <div style={{ color: '#d00000', fontWeight: 900, fontSize: 28, lineHeight: 1.1 }}>{pkg.price.toLocaleString()} MAD</div>
               </div>
               <div style={{ textAlign: 'right' }}>
-                <div style={{ color: '#94a3b8', fontSize: 11, fontWeight: 600, textTransform: 'uppercase', letterSpacing: 0.8 }}>Duration</div>
-                <div style={{ color: '#001d3d', fontWeight: 700, fontSize: 16 }}>{pkg.durationNights} nights</div>
+                <div style={{ color: '#94a3b8', fontSize: 11, fontWeight: 600, textTransform: 'uppercase', letterSpacing: 0.8 }}>{t.packages.duration}</div>
+                <div style={{ color: '#001d3d', fontWeight: 700, fontSize: 16 }}>{pkg.durationNights} {t.packages.nights}</div>
               </div>
             </div>
 
             {/* Details grid */}
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10, marginBottom: 24 }}>
               {[
-                { icon: '🕋', label: 'Makkah Hotel', value: pkg.hotelMakkah },
-                { icon: '🕌', label: 'Medina Hotel', value: pkg.hotelMedina },
-                { icon: '✈️', label: 'Airline', value: pkg.airline },
-                { icon: '📅', label: 'Departure', value: pkg.departure },
-                { icon: '🔙', label: 'Return', value: pkg.returnDate },
-                { icon: '🌙', label: 'Duration', value: `${pkg.durationNights} nights / ${pkg.durationDays} days` },
+                { icon: '🕋', label: t.packages.makkahHotel.replace(/^[^\s]+\s/, ''), value: pkg.hotelMakkah },
+                { icon: '🕌', label: t.packages.medinaHotel.replace(/^[^\s]+\s/, ''), value: pkg.hotelMedina },
+                { icon: '✈️', label: t.packages.airline, value: pkg.airline },
+                { icon: '📅', label: t.packages.departure, value: pkg.departure },
+                { icon: '🔙', label: t.packages.return, value: pkg.returnDate },
+                { icon: '🌙', label: t.packages.duration, value: `${pkg.durationNights} ${t.packages.nights} / ${pkg.durationDays} ${t.packages.days}` },
               ].map(({ icon, label, value }) => (
                 <div key={label} style={{ background: '#f8fafc', borderRadius: 12, padding: '14px 16px' }}>
                   <div style={{ fontSize: 18, marginBottom: 6 }}>{icon}</div>
@@ -168,17 +168,19 @@ function DetailsModal({ pkg, lang, t, onClose, onBook }: { pkg: Package; lang: s
             </div>
 
             {/* What's included */}
-            <div style={{ marginBottom: 24 }}>
-              <h4 style={{ color: '#001d3d', fontWeight: 700, fontSize: 14, marginBottom: 12 }}>What's Included</h4>
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-                {['Round-trip flights', 'Hotel accommodation', 'Airport transfers', 'Visa assistance', 'Tour guide', 'Daily breakfast'].map(item => (
-                  <div key={item} style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                    <span style={{ width: 20, height: 20, borderRadius: '50%', background: '#f0fdf4', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 11, flexShrink: 0 }}>✓</span>
-                    <span style={{ color: '#475569', fontSize: 13 }}>{item}</span>
-                  </div>
-                ))}
+            {pkg.includes && pkg.includes.length > 0 && (
+              <div style={{ marginBottom: 24 }}>
+                <h4 style={{ color: '#001d3d', fontWeight: 700, fontSize: 14, marginBottom: 12 }}>{t.packages.whatsIncluded}</h4>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                  {pkg.includes.map(item => (
+                    <div key={item} style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                      <span style={{ width: 20, height: 20, borderRadius: '50%', background: '#f0fdf4', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 11, flexShrink: 0 }}>✓</span>
+                      <span style={{ color: '#475569', fontSize: 13 }}>{item}</span>
+                    </div>
+                  ))}
+                </div>
               </div>
-            </div>
+            )}
 
             {/* CTA */}
             <motion.button onClick={onBook}
@@ -188,7 +190,7 @@ function DetailsModal({ pkg, lang, t, onClose, onBook }: { pkg: Package; lang: s
                 cursor: 'pointer', boxShadow: '0 4px 20px rgba(208,0,0,0.35)', fontFamily: 'inherit',
               }}
               whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-              Book This Package →
+              {t.packages.bookThisPackage} →
             </motion.button>
           </div>
         </motion.div>
