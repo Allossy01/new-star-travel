@@ -318,6 +318,7 @@ export default function BookingModal({ isOpen, onClose, packageName }: BookingMo
                 </div>
               </>
             )}
+            </div>
           </motion.div>
         </>
       )}
