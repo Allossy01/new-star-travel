@@ -358,6 +358,11 @@ export const translations = {
       subheadline: 'تجارب سفر روحية موثوقة للحج والعمرة — مصممة بعناية، موجهة بالإيمان.',
       bookNow: 'احجز الآن',
       explorePackages: 'استكشف الباقات',
+      badge: 'وكالة نيو ستار للسياحة',
+      statYears: 'سنوات خبرة',
+      statPilgrims: 'حاج سعيد',
+      statPackages: 'باقة',
+      statRating: 'التقييم',
     },
     search: {
       title: 'ابحث عن باقتك',
