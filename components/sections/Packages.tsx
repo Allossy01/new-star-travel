@@ -96,6 +96,7 @@ function PackageCard({ pkg, t, lang, onBook }: { pkg: Package; t: any; lang: str
             {t.packages.viewDetails}
           </button>
           <motion.button
+            onClick={() => onBook(name)}
             style={{
               flex: 1, background: '#d00000', color: '#fff', border: 'none',
               borderRadius: 12, padding: '11px 0', fontSize: 13, fontWeight: 600,
