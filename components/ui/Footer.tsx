@@ -47,7 +47,7 @@ export default function Footer() {
             <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
               {[
                 { name: 'WhatsApp', href: 'https://wa.me/212781350699', dot: '#25d366' },
-                { name: 'Instagram', href: '#', dot: '#E1306C' },
+                { name: 'Instagram', href: 'https://www.instagram.com/nstar.travel', dot: '#E1306C' },
                 { name: 'Facebook', href: '#', dot: '#1877F2' },
               ].map(({ name, href, dot }) => (
                 <a key={name} href={href} target="_blank" rel="noopener noreferrer"
