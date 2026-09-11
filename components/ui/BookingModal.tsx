@@ -225,56 +225,6 @@ export default function BookingModal({ isOpen, onClose, packageName }: BookingMo
                   </div>
                 )}
 
-                {/* Step 3 — Passport & Extras */}
-                {step === 3 && (
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-                    <div>
-                      <label style={labelStyle}>Passport Number *</label>
-                      <input style={inputStyle} value={form.passportNumber} onChange={e => update('passportNumber', e.target.value)}
-                        placeholder="AB123456"
-                        onFocus={e => e.currentTarget.style.borderColor = '#b8960c'}
-                        onBlur={e => e.currentTarget.style.borderColor = 'rgba(255,255,255,0.18)'}
-                      />
-                    </div>
-                    <div>
-                      <label style={labelStyle}>Passport Expiry Date *</label>
-                      <input style={inputStyle} type="date" value={form.passportExpiry} onChange={e => update('passportExpiry', e.target.value)}
-                        onFocus={e => e.currentTarget.style.borderColor = '#b8960c'}
-                        onBlur={e => e.currentTarget.style.borderColor = 'rgba(255,255,255,0.18)'}
-                      />
-                    </div>
-                    <div>
-                      <label style={labelStyle}>Special Requests</label>
-                      <textarea
-                        style={{ ...inputStyle, resize: 'none' }}
-                        rows={4}
-                        value={form.specialRequests}
-                        onChange={e => update('specialRequests', e.target.value)}
-                        placeholder="Wheelchair access, dietary requirements, connecting rooms..."
-                        onFocus={e => e.currentTarget.style.borderColor = '#b8960c'}
-                        onBlur={e => e.currentTarget.style.borderColor = 'rgba(255,255,255,0.18)'}
-                      />
-                    </div>
-                    {/* Summary */}
-                    <div style={{ background: 'rgba(184,150,12,0.08)', border: '1px solid rgba(184,150,12,0.2)', borderRadius: 12, padding: '16px' }}>
-                      <p style={{ color: '#b8960c', fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: 1, margin: '0 0 10px' }}>Booking Summary</p>
-                      {[
-                        { label: 'Name', value: form.fullName },
-                        { label: 'Phone', value: form.phone },
-                        { label: 'Package', value: form.packageType },
-                        { label: 'Travelers', value: `${form.adults} adult(s), ${form.children} child(ren)` },
-                        { label: 'Departure', value: form.departureDate },
-                        { label: 'Room', value: form.roomType },
-                      ].map(({ label, value }) => value ? (
-                        <div key={label} style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 6 }}>
-                          <span style={{ color: 'rgba(255,255,255,0.4)', fontSize: 12 }}>{label}</span>
-                          <span style={{ color: '#fff', fontSize: 12, fontWeight: 500 }}>{value}</span>
-                        </div>
-                      ) : null)}
-                    </div>
-                  </div>
-                )}
-
                 {/* Navigation buttons */}
                 <div style={{ display: 'flex', gap: 12, marginTop: 28 }}>
                   {step > 1 && (
@@ -284,15 +234,15 @@ export default function BookingModal({ isOpen, onClose, packageName }: BookingMo
                       padding: '14px 0', fontSize: 14, fontWeight: 600, cursor: 'pointer',
                     }}>← Back</button>
                   )}
-                  {step < 3 ? (
+                  {step < 2 ? (
                     <motion.button
                       onClick={() => setStep(s => s + 1)}
-                      disabled={step === 1 && (!form.fullName || !form.phone || !form.email)}
+                      disabled={!form.fullName || !form.phone || !form.email}
                       style={{
                         flex: 1, background: '#d00000', color: '#fff', border: 'none',
                         borderRadius: 12, padding: '14px 0', fontSize: 14, fontWeight: 700,
                         cursor: 'pointer', boxShadow: '0 4px 20px rgba(208,0,0,0.4)',
-                        opacity: step === 1 && (!form.fullName || !form.phone || !form.email) ? 0.5 : 1,
+                        opacity: (!form.fullName || !form.phone || !form.email) ? 0.5 : 1,
                       }}
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
