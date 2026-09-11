@@ -34,7 +34,7 @@ export default function AdminPage() {
 
   const updateBookingStatus = (id: string, status: BookingStatus) => ctxUpdateStatus(id, status);
 
-  const deletePkg = (id: string) => setPkgs(ps => ps.filter(p => p.id !== id));
+  const deletePkg = (id: string) => deletePackage(id);
 
   const openEditForm = (pkg: Package) => {
     setEditingPkg(pkg);
@@ -57,8 +57,8 @@ export default function AdminPage() {
       durationNights: Number(pkgForm.durationNights), durationDays: Number(pkgForm.durationDays),
       departure: pkgForm.departure, image: pkgForm.image, featured: true, includes: [],
     };
-    if (editingPkg) setPkgs(ps => ps.map(p => p.id === editingPkg.id ? newPkg : p));
-    else setPkgs(ps => [...ps, newPkg]);
+    if (editingPkg) updatePackage(newPkg);
+    else addPackage(newPkg);
     setShowPkgForm(false);
     setEditingPkg(null);
     setPkgForm({ nameEn: '', nameFr: '', nameAr: '', type: 'umrah', price: '', hotelMakkah: '', hotelMedina: '', hotelStars: 5, airline: '', durationNights: '', durationDays: '', departure: '', returnDate: '', image: '' });
