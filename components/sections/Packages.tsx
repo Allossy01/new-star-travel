@@ -47,7 +47,8 @@ function PackageCard({ pkg, t, lang, onBook, onDetails }: { pkg: Package; t: any
 
         <div style={{ marginBottom: 16 }}>
           {[
-            { label: t.packages.hotel, value: pkg.hotel },
+            { label: '🕋 Makkah Hotel', value: pkg.hotelMakkah },
+            { label: '🕌 Medina Hotel', value: pkg.hotelMedina },
             { label: t.packages.airline, value: pkg.airline },
             { label: t.packages.duration, value: `${pkg.durationNights} ${t.packages.nights}` },
             { label: t.packages.departure, value: pkg.departure },
