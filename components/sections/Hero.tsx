@@ -46,7 +46,7 @@ export default function Hero() {
             borderRadius: 99, padding: '7px 18px', marginBottom: 28,
           }}>
           <span style={{ width: 7, height: 7, borderRadius: '50%', background: '#b8960c', display: 'inline-block', animation: 'pulse 2s infinite' }} />
-          <span style={{ color: '#b8960c', fontSize: 13, fontWeight: 600, letterSpacing: 1 }}>New Star Travel Agency</span>
+          <span style={{ color: '#b8960c', fontSize: 13, fontWeight: 600, letterSpacing: 1 }}>{t.hero.badge}</span>
         </motion.div>
 
         {/* Headline */}
@@ -99,10 +99,10 @@ export default function Hero() {
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1, delay: 1.2 }}
           style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: 40, marginTop: 64 }}>
           {[
-            { num: '15+', label: 'Years Experience' },
-            { num: '10K+', label: 'Happy Pilgrims' },
-            { num: '50+', label: 'Packages' },
-            { num: '4.9★', label: 'Rating' },
+            { num: '15+', label: t.hero.statYears },
+            { num: '10K+', label: t.hero.statPilgrims },
+            { num: '50+', label: t.hero.statPackages },
+            { num: '4.9★', label: t.hero.statRating },
           ].map((stat) => (
             <div key={stat.label} style={{ textAlign: 'center' }}>
               <div style={{ fontSize: 26, fontWeight: 800, background: 'linear-gradient(135deg, #b8960c, #d4af37)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>{stat.num}</div>
