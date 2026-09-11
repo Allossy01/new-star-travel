@@ -76,9 +76,13 @@ export default function BookingModal({ isOpen, onClose, packageName }: BookingMo
             exit={{ opacity: 0, scale: 0.92, y: 40 }}
             transition={{ type: 'spring', stiffness: 300, damping: 30 }}
             style={{
-              position: 'fixed', top: '50%', left: '50%',
-              transform: 'translate(-50%, -50%)',
-              zIndex: 1001, width: '94%', maxWidth: 560,
+              position: 'fixed', top: 0, left: 0, right: 0, bottom: 0,
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              zIndex: 1001, pointerEvents: 'none',
+            }}
+          >
+            <div style={{
+              pointerEvents: 'all', width: '94%', maxWidth: 560,
               maxHeight: '90vh', overflowY: 'auto',
               background: 'linear-gradient(135deg, #001d3d, #001530)',
               borderRadius: 24, padding: '36px 32px',
