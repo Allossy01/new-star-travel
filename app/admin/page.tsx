@@ -406,6 +406,39 @@ export default function AdminPage() {
                           </select>
                         </div>
                       </div>
+                      {/* What's Included */}
+                      <div style={{ marginTop: 24 }}>
+                        <label style={{ display: 'block', fontSize: 11, fontWeight: 700, color: '#64748b', textTransform: 'uppercase', letterSpacing: 0.8, marginBottom: 10 }}>✅ What's Included</label>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: 6, marginBottom: 10 }}>
+                          {includes.map((item, i) => (
+                            <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 8, background: '#f0fdf4', borderRadius: 10, padding: '8px 12px' }}>
+                              <span style={{ color: '#16a34a', fontWeight: 700, fontSize: 14 }}>✓</span>
+                              <input
+                                value={item}
+                                onChange={e => { const u = [...includes]; u[i] = e.target.value; setIncludes(u); }}
+                                style={{ flex: 1, border: 'none', background: 'transparent', fontSize: 13, color: '#001d3d', fontFamily: 'Poppins, sans-serif', outline: 'none' }}
+                              />
+                              <button onClick={() => setIncludes(includes.filter((_, j) => j !== i))}
+                                style={{ border: 'none', background: 'none', cursor: 'pointer', color: '#ef4444', fontSize: 16, lineHeight: 1, padding: '0 4px' }}>×</button>
+                            </div>
+                          ))}
+                        </div>
+                        <div style={{ display: 'flex', gap: 8 }}>
+                          <input
+                            value={newInclude}
+                            onChange={e => setNewInclude(e.target.value)}
+                            onKeyDown={e => { if (e.key === 'Enter' && newInclude.trim()) { setIncludes([...includes, newInclude.trim()]); setNewInclude(''); } }}
+                            placeholder="Add an item and press Enter…"
+                            style={{ ...inputS, flex: 1, fontSize: 13 }}
+                            onFocus={e => e.currentTarget.style.borderColor = '#16a34a'}
+                            onBlur={e => e.currentTarget.style.borderColor = '#e2e8f0'}
+                          />
+                          <button
+                            onClick={() => { if (newInclude.trim()) { setIncludes([...includes, newInclude.trim()]); setNewInclude(''); } }}
+                            style={{ background: '#16a34a', color: '#fff', border: 'none', borderRadius: 12, padding: '0 18px', fontSize: 20, fontWeight: 700, cursor: 'pointer' }}>+</button>
+                        </div>
+                      </div>
+
                       <div style={{ display: 'flex', gap: 10, marginTop: 24 }}>
                         <button onClick={() => setShowPkgForm(false)} style={{
                           flex: 1, border: '1.5px solid #e2e8f0', background: '#fff', color: '#64748b',
