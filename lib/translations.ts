@@ -41,6 +41,9 @@ export const translations = {
       bookNow: 'Book Now',
       nights: 'nights',
       days: 'days',
+      makkahHotel: '🕋 Makkah Hotel',
+      medinaHotel: '🕌 Medina Hotel',
+      return: 'Return',
     },
     whyUs: {
       title: 'Why Choose Us',
