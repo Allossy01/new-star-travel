@@ -88,8 +88,8 @@ export default function BookingModal({ isOpen, onClose, packageName }: BookingMo
               borderRadius: 24, padding: '36px 32px',
               border: '1px solid rgba(184,150,12,0.2)',
               boxShadow: '0 32px 80px rgba(0,0,0,0.6)',
-            }}
-          >
+              position: 'relative',
+            }}>
             {/* Close */}
             <button onClick={onClose} style={{
               position: 'absolute', top: 16, right: 16,
