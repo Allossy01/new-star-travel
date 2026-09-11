@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import { LanguageProvider } from '@/lib/LanguageContext';
+import { BookingsProvider } from '@/lib/BookingsContext';
 
 export const metadata: Metadata = {
   title: 'New Star Travel — Hajj & Umrah Packages',
@@ -33,7 +34,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body>
         <LanguageProvider>
-          {children}
+          <BookingsProvider>
+            {children}
+          </BookingsProvider>
         </LanguageProvider>
       </body>
     </html>
