@@ -150,7 +150,8 @@ function DetailsModal({ pkg, lang, t, onClose, onBook }: { pkg: Package; lang: s
             {/* Details grid */}
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10, marginBottom: 24 }}>
               {[
-                { icon: '🏨', label: 'Hotel', value: pkg.hotel },
+                { icon: '🕋', label: 'Makkah Hotel', value: pkg.hotelMakkah },
+                { icon: '🕌', label: 'Medina Hotel', value: pkg.hotelMedina },
                 { icon: '✈️', label: 'Airline', value: pkg.airline },
                 { icon: '📅', label: 'Departure', value: pkg.departure },
                 { icon: '🌙', label: 'Duration', value: `${pkg.durationNights} nights / ${pkg.durationDays} days` },
