@@ -5,6 +5,7 @@ import { useLang } from '@/lib/LanguageContext';
 import { type Package } from '@/lib/data';
 import { usePackages } from '@/lib/PackagesContext';
 import BookingModal from '@/components/ui/BookingModal';
+import { useSearch } from '@/lib/SearchContext';
 
 function StarRating({ stars }: { stars: number }) {
   return (
@@ -204,12 +205,19 @@ function DetailsModal({ pkg, lang, t, onClose, onBook }: { pkg: Package; lang: s
 export default function Packages() {
   const { t, lang } = useLang();
   const { packages } = usePackages();
+  const { filters, hasSearch } = useSearch();
   const [filter, setFilter] = useState<'all' | 'umrah' | 'hajj'>('all');
   const [bookingOpen, setBookingOpen] = useState(false);
   const [selectedPackage, setSelectedPackage] = useState('');
   const [detailsPkg, setDetailsPkg] = useState<Package | null>(null);
 
-  const filtered = filter === 'all' ? packages : packages.filter(p => p.type === filter);
+  const byTab = filter === 'all' ? packages : packages.filter(p => p.type === filter);
+
+  const filtered = !hasSearch ? byTab : byTab.filter(p => {
+    if (filters.travelType && p.type !== filters.travelType) return false;
+    if (filters.date && p.departure > filters.date) return false;
+    return true;
+  });
   const handleBook = (name: string) => { setSelectedPackage(name); setBookingOpen(true); };
   const handleDetails = (pkg: Package) => setDetailsPkg(pkg);
 
