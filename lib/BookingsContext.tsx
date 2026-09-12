@@ -6,6 +6,7 @@ interface BookingsContextType {
   bookings: Booking[];
   addBooking: (booking: Booking) => void;
   updateBookingStatus: (id: string, status: Booking['status']) => void;
+  deleteBooking: (id: string) => void;
 }
 
 const BookingsContext = createContext<BookingsContextType | null>(null);
