@@ -18,12 +18,12 @@ export default function Navbar() {
   }, []);
 
   const links = [
-    { label: t.nav.home, href: '#home' },
-    { label: t.nav.umrah, href: '#packages' },
-    { label: t.nav.hajj, href: '#packages' },
-    { label: t.nav.destinations, href: '#packages' },
-    { label: t.nav.about, href: '#why-us' },
-    { label: t.nav.contact, href: '#contact' },
+    { label: t.nav.home,     href: '#home' },
+    { label: t.nav.umrah,    href: '#packages' },
+    { label: t.nav.hajj,     href: '#packages' },
+    { label: t.nav.about,    href: '#why-us' },
+    { label: t.faq.title,    href: '#faq' },
+    { label: t.nav.contact,  href: '#contact' },
   ];
 
   return (
