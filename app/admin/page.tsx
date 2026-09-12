@@ -217,7 +217,7 @@ export default function AdminPage() {
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 32 }}>
             <div>
               <h1 style={{ fontSize: 24, fontWeight: 800, color: '#001d3d', margin: 0 }}>
-                {tab === 'dashboard' ? 'Dashboard' : tab === 'packages' ? 'Packages' : tab === 'faq' ? 'FAQ' : 'Bookings'}
+                {tab === 'dashboard' ? 'Dashboard' : tab === 'packages' ? 'Packages' : tab === 'faq' ? 'FAQ' : tab === 'subscribers' ? 'Subscribers' : 'Bookings'}
               </h1>
               <p style={{ color: '#94a3b8', fontSize: 13, margin: '4px 0 0' }}>New Star Travel · Admin Panel</p>
             </div>
@@ -718,6 +718,59 @@ export default function AdminPage() {
                   </div>
                 )}
               </div>
+            </motion.div>
+          )}
+
+          {/* ── SUBSCRIBERS ── */}
+          {tab === 'subscribers' && (
+            <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24 }}>
+                <p style={{ color: '#64748b', fontSize: 13, margin: 0 }}>{subscribers.length} subscribers from the newsletter</p>
+              </div>
+
+              {subscribers.length === 0 ? (
+                <div style={{ textAlign: 'center', padding: '60px 0', color: '#94a3b8' }}>
+                  <div style={{ fontSize: 48, marginBottom: 12 }}>📭</div>
+                  <p style={{ fontSize: 15, fontWeight: 600 }}>No subscribers yet</p>
+                  <p style={{ fontSize: 13, marginTop: 4 }}>Emails will appear here when visitors subscribe from the website</p>
+                </div>
+              ) : (
+                <div style={{ background: '#fff', borderRadius: 20, boxShadow: '0 2px 12px rgba(0,0,0,0.06)', border: '1px solid #f1f5f9', overflow: 'hidden' }}>
+                  <div style={{ overflowX: 'auto' }}>
+                    <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13 }}>
+                      <thead>
+                        <tr style={{ background: '#f8fafc' }}>
+                          {['#', 'Email', 'Date'].map(h => (
+                            <th key={h} style={{ textAlign: 'left', padding: '14px 20px', color: '#94a3b8', fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: 0.8 }}>{h}</th>
+                          ))}
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {subscribers.map((s, i) => (
+                          <tr key={s.id} style={{ borderTop: '1px solid #f8fafc' }}
+                            onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = '#fafafa'}
+                            onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = 'transparent'}
+                          >
+                            <td style={{ padding: '14px 20px', color: '#94a3b8', fontWeight: 600 }}>{i + 1}</td>
+                            <td style={{ padding: '14px 20px' }}>
+                              <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                                <div style={{
+                                  width: 34, height: 34, borderRadius: 10, flexShrink: 0,
+                                  background: 'linear-gradient(135deg, #001d3d, #003870)',
+                                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                                  color: '#fff', fontWeight: 700, fontSize: 13,
+                                }}>{s.email[0].toUpperCase()}</div>
+                                <span style={{ fontWeight: 600, color: '#001d3d' }}>{s.email}</span>
+                              </div>
+                            </td>
+                            <td style={{ padding: '14px 20px', color: '#64748b' }}>📅 {s.date}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              )}
             </motion.div>
           )}
 
