@@ -155,16 +155,23 @@ export default function Contact() {
               {t.contact.whatsapp}
             </a>
 
-            {/* Map placeholder */}
-            <div style={{
-              borderRadius: 16, height: 160, overflow: 'hidden',
-              background: 'linear-gradient(135deg, #001a38, #001d3d)',
-              border: '1px solid rgba(255,255,255,0.08)',
-              display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
-            }}>
-              <span style={{ fontSize: 32, marginBottom: 8 }}>📍</span>
-              <span style={{ color: 'rgba(255,255,255,0.35)', fontSize: 13 }}>{t.contact.mapLabel}</span>
-            </div>
+            {/* Google Maps */}
+            <a
+              href="https://www.google.com/maps/place/New+Star+Travel+Agency,+Residance+26,+Projet+Hassan2,+Casablanca,+Maroc/@33.5875157,-7.5559381,15z"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ display: 'block', borderRadius: 16, overflow: 'hidden', border: '1px solid rgba(255,255,255,0.08)', textDecoration: 'none' }}
+            >
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3324.0!2d-7.5559381!3d33.5875157!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xda7cddc57ab987d%3A0x6224df2107f716dd!2sNew%20Star%20Travel%20Agency!5e0!3m2!1sfr!2sma!4v1"
+                width="100%"
+                height="200"
+                style={{ border: 0, display: 'block', filter: 'invert(90%) hue-rotate(180deg)' }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              />
+            </a>
           </motion.div>
         </div>
       </div>
