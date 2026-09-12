@@ -28,6 +28,7 @@ export default function AdminPage() {
   const { packages: pkgs, addPackage, updatePackage, deletePackage } = usePackages();
   const { bookings, updateBookingStatus: ctxUpdateStatus } = useBookings();
   const { faqs, addFAQ, updateFAQ, deleteFAQ } = useFAQ();
+  const { subscribers } = useSubscribers();
   const [showFAQForm, setShowFAQForm] = useState(false);
   const [editingFAQ, setEditingFAQ] = useState<FAQItem | null>(null);
   const [faqForm, setFaqForm] = useState(emptyFAQ());
@@ -108,6 +109,7 @@ export default function AdminPage() {
     { id: 'packages', label: 'Packages', icon: '📦', count: pkgs.length },
     { id: 'bookings', label: 'Bookings', icon: '📋', count: bookings.filter(b => b.status === 'pending').length },
     { id: 'faq', label: 'FAQ', icon: '❓', count: faqs.length },
+    { id: 'subscribers', label: 'Subscribers', icon: '📧', count: subscribers.length },
   ];
 
   const stats = [
