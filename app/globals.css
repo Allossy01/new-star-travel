@@ -26,7 +26,7 @@ body {
 }
 
 body[dir="rtl"] {
-  font-family: 'Cairo', sans-serif;
+  font-family: 'Tajawal', sans-serif;
 }
 
 ::-webkit-scrollbar { width: 6px; }
