@@ -3,7 +3,6 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLang } from '@/lib/LanguageContext';
 import { useFAQ } from '@/lib/FAQContext';
-import type { Language } from '@/lib/translations';
 
 export default function FAQ() {
   const { t, lang } = useLang();
