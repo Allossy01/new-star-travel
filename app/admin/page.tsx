@@ -768,6 +768,12 @@ export default function AdminPage() {
                       {(b.status === 'paid' || b.status === 'rejected') && (
                         <span style={{ color: '#94a3b8', fontSize: 11, fontWeight: 500 }}>No actions</span>
                       )}
+                      <button onClick={() => deleteBooking(b.id)} style={{
+                        background: '#fef2f2', color: '#ef4444', border: '1.5px solid #fecaca',
+                        borderRadius: 8, padding: '7px 14px', fontSize: 11, fontWeight: 700,
+                        cursor: 'pointer', fontFamily: 'Poppins, sans-serif', whiteSpace: 'nowrap',
+                        marginTop: 4,
+                      }}>🗑️ Delete</button>
                     </div>
                   </motion.div>
                 ))}
