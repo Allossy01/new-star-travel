@@ -151,7 +151,7 @@ export const testimonials: Testimonial[] = [
     nameAr: 'خديجة التازي',
     nameFr: 'Khadija Tazi',
     reviewEn: 'The VIP Hajj package was worth every penny. 5-star hotels in both Makkah and Madinah, meals provided, and a wonderful guide who explained everything beautifully.',
-    reviewAr: 'باقة الحج VIP كانت تستحق كل قرش. فنادق خمس نجوم في مكة المكرمة والمدينة المنورة، وجبات مقدمة، ومرشد رائع شرح كل شيء بشكل جميل.',
+    reviewAr: 'باقة الحج VIP كانت تستحق كل درهم. فنادق خمس نجوم في مكة المكرمة والمدينة المنورة، وجبات مقدمة، ومرشد رائع شرح كل شيء بشكل جميل.',
     reviewFr: 'Le forfait Hajj VIP valait chaque centime. Hôtels 5 étoiles à La Mecque et Médine, repas fournis, et un guide merveilleux qui a tout expliqué magnifiquement.',
     rating: 5,
     city: 'Fès',
