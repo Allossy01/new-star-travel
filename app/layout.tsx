@@ -4,6 +4,7 @@ import { LanguageProvider } from '@/lib/LanguageContext';
 import { BookingsProvider } from '@/lib/BookingsContext';
 import { PackagesProvider } from '@/lib/PackagesContext';
 import { FAQProvider } from '@/lib/FAQContext';
+import { SubscribersProvider } from '@/lib/SubscribersContext';
 
 export const metadata: Metadata = {
   title: 'New Star Travel — Hajj & Umrah Packages',
@@ -39,7 +40,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <BookingsProvider>
             <PackagesProvider>
               <FAQProvider>
-                {children}
+                <SubscribersProvider>
+                  {children}
+                </SubscribersProvider>
               </FAQProvider>
             </PackagesProvider>
           </BookingsProvider>
