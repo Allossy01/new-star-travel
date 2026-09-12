@@ -1,16 +1,33 @@
-﻿'use client';
+'use client';
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLang } from '@/lib/LanguageContext';
+import { useFAQ } from '@/lib/FAQContext';
+import type { Language } from '@/lib/translations';
 
 export default function FAQ() {
-  const { t } = useLang();
-  const [open, setOpen] = useState<number | null>(null);
+  const { t, lang } = useLang();
+  const { faqs } = useFAQ();
+  const [openId, setOpenId] = useState<string | null>(null);
+
+  const getQ = (faq: ReturnType<typeof useFAQ>['faqs'][0]) => {
+    if (lang === 'ar') return faq.questionAr;
+    if (lang === 'fr') return faq.questionFr;
+    return faq.questionEn;
+  };
+  const getA = (faq: ReturnType<typeof useFAQ>['faqs'][0]) => {
+    if (lang === 'ar') return faq.answerAr;
+    if (lang === 'fr') return faq.answerFr;
+    return faq.answerEn;
+  };
+
+  const isRtl = lang === 'ar';
 
   return (
-    <section style={{ padding: '96px 0', background: '#f8f9fa' }}>
-      <div style={{ maxWidth: 780, margin: '0 auto', padding: '0 32px' }}>
-        {/* Header */}
+    <section id="faq" style={{ padding: '96px 0', background: '#f8fafc', position: 'relative', overflow: 'hidden' }}>
+      <div style={{ position: 'absolute', inset: 0, opacity: 0.03, background: 'radial-gradient(circle at 80% 20%, #d00000, transparent 50%), radial-gradient(circle at 20% 80%, #b8960c, transparent 50%)', pointerEvents: 'none' }} />
+
+      <div style={{ maxWidth: 860, margin: '0 auto', padding: '0 32px', position: 'relative', zIndex: 1 }}>
         <motion.div
           style={{ textAlign: 'center', marginBottom: 56 }}
           initial={{ opacity: 0, y: 30 }}
@@ -19,57 +36,67 @@ export default function FAQ() {
           transition={{ duration: 0.7 }}
         >
           <span style={{ color: '#d00000', fontSize: 12, fontWeight: 700, textTransform: 'uppercase', letterSpacing: 3, display: 'block', marginBottom: 8 }}>FAQ</span>
-          <h2 style={{ fontSize: 'clamp(28px, 4vw, 44px)', fontWeight: 800, color: '#001d3d', marginBottom: 12 }}>{t.faq.title}</h2>
-          <p style={{ color: '#888', margin: 0 }}>{t.faq.subtitle}</p>
+          <h2 style={{ fontSize: 'clamp(26px, 4vw, 40px)', fontWeight: 800, color: '#001d3d', marginBottom: 12 }}>{t.faq.title}</h2>
+          <p style={{ color: '#64748b', margin: 0 }}>{t.faq.subtitle}</p>
         </motion.div>
 
-        {/* Accordion */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-          {t.faq.items.map((item, i) => (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }} dir={isRtl ? 'rtl' : 'ltr'}>
+          {faqs.map((faq, i) => (
             <motion.div
-              key={i}
-              style={{ borderRadius: 16, overflow: 'hidden', boxShadow: '0 2px 12px rgba(0,0,0,0.06)' }}
+              key={faq.id}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: i * 0.1 }}
+              transition={{ delay: i * 0.07 }}
+              style={{
+                background: '#fff',
+                borderRadius: 16,
+                border: openId === faq.id ? '1.5px solid #d00000' : '1.5px solid #e2e8f0',
+                boxShadow: openId === faq.id ? '0 4px 20px rgba(208,0,0,0.1)' : '0 2px 8px rgba(0,0,0,0.05)',
+                overflow: 'hidden',
+                transition: 'border-color 0.25s, box-shadow 0.25s',
+              }}
             >
               <button
-                onClick={() => setOpen(open === i ? null : i)}
+                onClick={() => setOpenId(openId === faq.id ? null : faq.id)}
                 style={{
-                  width: '100%', display: 'flex', alignItems: 'center',
-                  justifyContent: 'space-between', padding: '20px 24px',
-                  background: '#fff', border: 'none', cursor: 'pointer',
-                  textAlign: 'left', gap: 16,
+                  width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                  gap: 16, padding: '20px 24px', background: 'none', border: 'none',
+                  cursor: 'pointer', textAlign: isRtl ? 'right' : 'left',
+                  fontFamily: 'Poppins, sans-serif',
                 }}
               >
-                <span style={{ fontWeight: 600, color: '#001d3d', fontSize: 15, lineHeight: 1.4, flex: 1 }}>{item.q}</span>
-                <motion.span
-                  animate={{ rotate: open === i ? 45 : 0 }}
-                  transition={{ duration: 0.2 }}
-                  style={{
-                    flexShrink: 0, width: 32, height: 32, borderRadius: '50%',
-                    background: '#d00000', color: '#fff', display: 'flex',
-                    alignItems: 'center', justifyContent: 'center',
-                    fontSize: 20, fontWeight: 400, lineHeight: 1,
-                  }}
-                >+</motion.span>
+                <span style={{ fontSize: 15, fontWeight: 700, color: '#001d3d', lineHeight: 1.4 }}>
+                  {getQ(faq)}
+                </span>
+                <span style={{
+                  width: 32, height: 32, borderRadius: '50%', flexShrink: 0,
+                  background: openId === faq.id ? '#d00000' : '#f1f5f9',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  color: openId === faq.id ? '#fff' : '#64748b',
+                  fontSize: 18, fontWeight: 700, transition: 'all 0.25s',
+                }}>
+                  {openId === faq.id ? '−' : '+'}
+                </span>
               </button>
-
               <AnimatePresence>
-                {open === i && (
+                {openId === faq.id && (
                   <motion.div
                     initial={{ height: 0, opacity: 0 }}
                     animate={{ height: 'auto', opacity: 1 }}
                     exit={{ height: 0, opacity: 0 }}
-                    transition={{ duration: 0.3, ease: 'easeInOut' }}
+                    transition={{ duration: 0.25 }}
                     style={{ overflow: 'hidden' }}
                   >
                     <div style={{
-                      padding: '0 24px 24px', background: '#fff',
-                      borderTop: '1px solid #f0f0f0',
+                      padding: '0 24px 20px',
+                      borderTop: '1px solid #f1f5f9',
+                      paddingTop: 16,
+                      color: '#475569',
+                      fontSize: 14,
+                      lineHeight: 1.7,
                     }}>
-                      <p style={{ color: '#666', lineHeight: 1.7, fontSize: 14, margin: '16px 0 0' }}>{item.a}</p>
+                      {getA(faq)}
                     </div>
                   </motion.div>
                 )}
@@ -81,4 +108,3 @@ export default function FAQ() {
     </section>
   );
 }
-

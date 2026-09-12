@@ -3,6 +3,7 @@ import './globals.css';
 import { LanguageProvider } from '@/lib/LanguageContext';
 import { BookingsProvider } from '@/lib/BookingsContext';
 import { PackagesProvider } from '@/lib/PackagesContext';
+import { FAQProvider } from '@/lib/FAQContext';
 
 export const metadata: Metadata = {
   title: 'New Star Travel — Hajj & Umrah Packages',
