@@ -6,8 +6,9 @@ import { useBookings } from '@/lib/BookingsContext';
 import { usePackages } from '@/lib/PackagesContext';
 import { useFAQ, type FAQItem } from '@/lib/FAQContext';
 import { useSubscribers } from '@/lib/SubscribersContext';
+import { useMessages } from '@/lib/MessagesContext';
 
-type Tab = 'dashboard' | 'packages' | 'bookings' | 'faq' | 'subscribers';
+type Tab = 'dashboard' | 'packages' | 'bookings' | 'faq' | 'subscribers' | 'messages';
 type BookingStatus = Booking['status'];
 
 const statusColor: Record<BookingStatus, { bg: string; text: string; dot: string }> = {
@@ -29,6 +30,7 @@ export default function AdminPage() {
   const { bookings, updateBookingStatus: ctxUpdateStatus } = useBookings();
   const { faqs, addFAQ, updateFAQ, deleteFAQ } = useFAQ();
   const { subscribers } = useSubscribers();
+  const { messages: contactMessages, markRead } = useMessages();
   const [showFAQForm, setShowFAQForm] = useState(false);
   const [editingFAQ, setEditingFAQ] = useState<FAQItem | null>(null);
   const [faqForm, setFaqForm] = useState(emptyFAQ());
