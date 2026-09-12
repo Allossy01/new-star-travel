@@ -111,9 +111,9 @@ export const packages: Package[] = [
 export const testimonials: Testimonial[] = [
   {
     id: '1',
-    nameEn: 'Ahmed Benali',
-    nameAr: 'أحمد بن علي',
-    nameFr: 'Ahmed Benali',
+    nameEn: 'Youssef El Mansouri',
+    nameAr: 'يوسف المنصوري',
+    nameFr: 'Youssef El Mansouri',
     reviewEn: 'Alhamdulillah, the best Umrah experience of my life. New Star Travel took care of everything perfectly. The hotel was steps from the Haram and the team was incredibly supportive throughout the journey.',
     reviewAr: 'الحمد لله، كانت أفضل تجربة عمرة في حياتي. اهتمت نيو ستار للسياحة بكل شيء بشكل مثالي. كان الفندق على بعد خطوات من الحرم والفريق كان داعماً بشكل لا يصدق طوال الرحلة.',
     reviewFr: 'Alhamdulillah, la meilleure expérience d\'Omra de ma vie. New Star Travel a tout géré parfaitement. L\'hôtel était à deux pas du Haram et l\'équipe était incroyablement solidaire.',
