@@ -57,7 +57,6 @@ export default function Contact() {
           >
             {[
               { field: 'name', label: t.contact.name, type: 'text' },
-              { field: 'email', label: t.contact.email, type: 'email' },
               { field: 'phone', label: t.contact.phone, type: 'tel' },
             ].map(({ field, label, type }) => (
               <div key={field}>
