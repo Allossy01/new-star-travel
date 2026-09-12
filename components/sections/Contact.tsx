@@ -5,14 +5,14 @@ import { useLang } from '@/lib/LanguageContext';
 
 export default function Contact() {
   const { t } = useLang();
-  const [form, setForm] = useState({ name: '', email: '', phone: '', message: '' });
+  const [form, setForm] = useState({ name: '', phone: '', message: '' });
   const [sent, setSent] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setSent(true);
     setTimeout(() => setSent(false), 3000);
-    setForm({ name: '', email: '', phone: '', message: '' });
+    setForm({ name: '', phone: '', message: '' });
   };
 
   const inputStyle: React.CSSProperties = {
