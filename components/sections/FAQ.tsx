@@ -9,12 +9,13 @@ export default function FAQ() {
   const { faqs } = useFAQ();
   const [openId, setOpenId] = useState<string | null>(null);
 
-  const getQ = (faq: ReturnType<typeof useFAQ>['faqs'][0]) => {
+  type FAQItem = (typeof faqs)[0];
+  const getQ = (faq: FAQItem) => {
     if (lang === 'ar') return faq.questionAr;
     if (lang === 'fr') return faq.questionFr;
     return faq.questionEn;
   };
-  const getA = (faq: ReturnType<typeof useFAQ>['faqs'][0]) => {
+  const getA = (faq: FAQItem) => {
     if (lang === 'ar') return faq.answerAr;
     if (lang === 'fr') return faq.answerFr;
     return faq.answerEn;
