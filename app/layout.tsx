@@ -38,7 +38,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <LanguageProvider>
           <BookingsProvider>
             <PackagesProvider>
-              {children}
+              <FAQProvider>
+                {children}
+              </FAQProvider>
             </PackagesProvider>
           </BookingsProvider>
         </LanguageProvider>
