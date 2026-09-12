@@ -87,7 +87,7 @@ export default function Footer() {
               </a>
 
               {/* Facebook */}
-              <a href="#" target="_blank" rel="noopener noreferrer"
+              <a href="https://www.facebook.com/61576894971450" target="_blank" rel="noopener noreferrer"
                 style={{ display: 'flex', alignItems: 'center', gap: 10, color: 'rgba(255,255,255,0.45)', fontSize: 14, textDecoration: 'none', transition: 'color 0.2s' }}
                 onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = '#fff'}
                 onMouseLeave={e => (e.currentTarget as HTMLElement).style.color = 'rgba(255,255,255,0.45)'}
