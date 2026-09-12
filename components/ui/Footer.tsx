@@ -33,11 +33,11 @@ export default function Footer() {
             <h4 style={{ color: '#b8960c', fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: 2, marginBottom: 20 }}>{t.footer.quickLinks}</h4>
             <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: 10 }}>
               {[
-                { label: t.nav.home, href: '#home' },
-                { label: t.nav.umrah, href: '#packages' },
-                { label: t.nav.hajj, href: '#packages' },
-                { label: t.nav.destinations, href: '#packages' },
-                { label: t.nav.about, href: '#why-us' },
+                { label: t.nav.home,    href: '#home' },
+                { label: t.nav.umrah,   href: '#packages' },
+                { label: t.nav.hajj,    href: '#packages' },
+                { label: t.nav.about,   href: '#why-us' },
+                { label: 'FAQ',         href: '#faq' },
                 { label: t.nav.contact, href: '#contact' },
               ].map(({ label, href }) => (
                 <li key={label}>
