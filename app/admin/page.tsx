@@ -80,10 +80,33 @@ export default function AdminPage() {
     setNewInclude('');
   };
 
+  const openFAQEdit = (faq: FAQItem) => {
+    setEditingFAQ(faq);
+    setFaqForm({
+      questionEn: faq.questionEn, questionFr: faq.questionFr, questionAr: faq.questionAr,
+      answerEn: faq.answerEn, answerFr: faq.answerFr, answerAr: faq.answerAr,
+    });
+    setShowFAQForm(true);
+  };
+
+  const saveFAQ = () => {
+    const item: FAQItem = {
+      id: editingFAQ?.id || `faq-${Date.now()}`,
+      order: editingFAQ?.order ?? faqs.length + 1,
+      ...faqForm,
+    };
+    if (editingFAQ) updateFAQ(item);
+    else addFAQ(item);
+    setShowFAQForm(false);
+    setEditingFAQ(null);
+    setFaqForm(emptyFAQ());
+  };
+
   const navItems: { id: Tab; label: string; icon: string; count?: number }[] = [
     { id: 'dashboard', label: 'Dashboard', icon: '📊' },
     { id: 'packages', label: 'Packages', icon: '📦', count: pkgs.length },
     { id: 'bookings', label: 'Bookings', icon: '📋', count: bookings.filter(b => b.status === 'pending').length },
+    { id: 'faq', label: 'FAQ', icon: '❓', count: faqs.length },
   ];
 
   const stats = [
