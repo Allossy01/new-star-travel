@@ -222,7 +222,7 @@ export default function AdminPage() {
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 32 }}>
             <div>
               <h1 style={{ fontSize: 24, fontWeight: 800, color: '#001d3d', margin: 0 }}>
-                {tab === 'dashboard' ? 'Dashboard' : tab === 'packages' ? 'Packages' : 'Bookings'}
+                {tab === 'dashboard' ? 'Dashboard' : tab === 'packages' ? 'Packages' : tab === 'faq' ? 'FAQ' : 'Bookings'}
               </h1>
               <p style={{ color: '#94a3b8', fontSize: 13, margin: '4px 0 0' }}>New Star Travel · Admin Panel</p>
             </div>
@@ -484,6 +484,137 @@ export default function AdminPage() {
                           cursor: 'pointer', fontFamily: 'Poppins, sans-serif',
                           boxShadow: '0 4px 16px rgba(208,0,0,0.3)',
                         }}>{editingPkg ? 'Save Changes' : 'Add Package'}</button>
+                      </div>
+                    </motion.div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </motion.div>
+          )}
+
+          {/* ── FAQ ── */}
+          {tab === 'faq' && (
+            <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24 }}>
+                <p style={{ color: '#64748b', fontSize: 13, margin: 0 }}>{faqs.length} questions · shown on the website in the selected language</p>
+                <button onClick={() => { setEditingFAQ(null); setFaqForm(emptyFAQ()); setShowFAQForm(true); }} style={{
+                  background: '#d00000', color: '#fff', border: 'none',
+                  borderRadius: 12, padding: '11px 20px', fontSize: 13, fontWeight: 700,
+                  cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 6,
+                  boxShadow: '0 4px 16px rgba(208,0,0,0.3)', fontFamily: 'Poppins, sans-serif',
+                }}>+ Add Question</button>
+              </div>
+
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+                {faqs.map((faq, i) => (
+                  <motion.div key={faq.id} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.06 }}
+                    style={{ background: '#fff', borderRadius: 18, padding: '20px 24px', boxShadow: '0 2px 12px rgba(0,0,0,0.06)', border: '1px solid #f1f5f9' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: 16, marginBottom: 12 }}>
+                      <div style={{ flex: 1 }}>
+                        <div style={{ fontSize: 12, color: '#94a3b8', fontWeight: 700, textTransform: 'uppercase', letterSpacing: 0.6, marginBottom: 6 }}>Question</div>
+                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 10 }}>
+                          {[
+                            { lang: '🇬🇧 EN', val: faq.questionEn },
+                            { lang: '🇫🇷 FR', val: faq.questionFr },
+                            { lang: '🇲🇦 AR', val: faq.questionAr },
+                          ].map(({ lang, val }) => (
+                            <div key={lang} style={{ background: '#f8fafc', borderRadius: 10, padding: '10px 12px' }}>
+                              <div style={{ fontSize: 10, color: '#b8960c', fontWeight: 700, marginBottom: 4 }}>{lang}</div>
+                              <div style={{ fontSize: 12, color: '#001d3d', fontWeight: 600, lineHeight: 1.4 }}>{val || '—'}</div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                      <div style={{ display: 'flex', gap: 8, flexShrink: 0 }}>
+                        <button onClick={() => openFAQEdit(faq)} style={{
+                          border: '1.5px solid #e2e8f0', background: '#fff', color: '#475569',
+                          borderRadius: 10, padding: '8px 14px', fontSize: 12, fontWeight: 600,
+                          cursor: 'pointer', fontFamily: 'Poppins, sans-serif',
+                        }}>✏️ Edit</button>
+                        <button onClick={() => deleteFAQ(faq.id)} style={{
+                          border: '1.5px solid #fee2e2', background: '#fff', color: '#ef4444',
+                          borderRadius: 10, padding: '8px 14px', fontSize: 12, fontWeight: 600,
+                          cursor: 'pointer', fontFamily: 'Poppins, sans-serif',
+                        }}>🗑️</button>
+                      </div>
+                    </div>
+                    <div style={{ fontSize: 12, color: '#94a3b8', fontWeight: 700, textTransform: 'uppercase', letterSpacing: 0.6, marginBottom: 6 }}>Answer</div>
+                    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 10 }}>
+                      {[
+                        { lang: '🇬🇧 EN', val: faq.answerEn },
+                        { lang: '🇫🇷 FR', val: faq.answerFr },
+                        { lang: '🇲🇦 AR', val: faq.answerAr },
+                      ].map(({ lang, val }) => (
+                        <div key={lang} style={{ background: '#f0f9ff', borderRadius: 10, padding: '10px 12px' }}>
+                          <div style={{ fontSize: 10, color: '#0284c7', fontWeight: 700, marginBottom: 4 }}>{lang}</div>
+                          <div style={{ fontSize: 12, color: '#334155', lineHeight: 1.5 }}>{val || '—'}</div>
+                        </div>
+                      ))}
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+
+              {/* FAQ Form Modal */}
+              <AnimatePresence>
+                {showFAQForm && (
+                  <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+                    style={{ position: 'fixed', inset: 0, zIndex: 50, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 16 }}>
+                    <div style={{ position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.5)', backdropFilter: 'blur(4px)' }} onClick={() => setShowFAQForm(false)} />
+                    <motion.div initial={{ scale: 0.92, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.92, opacity: 0 }}
+                      style={{
+                        position: 'relative', background: '#fff', borderRadius: 24, padding: '32px 28px',
+                        width: '100%', maxWidth: 720, maxHeight: '90vh', overflowY: 'auto',
+                        boxShadow: '0 32px 80px rgba(0,0,0,0.25)',
+                      }}>
+                      <h3 style={{ fontSize: 18, fontWeight: 800, color: '#001d3d', margin: '0 0 6px' }}>{editingFAQ ? '✏️ Edit Question' : '+ New Question'}</h3>
+                      <p style={{ color: '#94a3b8', fontSize: 13, margin: '0 0 24px' }}>Fill in all 3 languages so the website shows the correct translation</p>
+
+                      {(['En', 'Fr', 'Ar'] as const).map(l => (
+                        <div key={l} style={{ marginBottom: 24 }}>
+                          <div style={{ fontSize: 12, fontWeight: 700, color: '#b8960c', textTransform: 'uppercase', letterSpacing: 1, marginBottom: 10 }}>
+                            {l === 'En' ? '🇬🇧 English' : l === 'Fr' ? '🇫🇷 Français' : '🇲🇦 العربية'}
+                          </div>
+                          <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+                            <div>
+                              <label style={{ display: 'block', fontSize: 11, fontWeight: 700, color: '#64748b', textTransform: 'uppercase', letterSpacing: 0.8, marginBottom: 6 }}>Question</label>
+                              <input
+                                value={faqForm[`question${l}` as keyof typeof faqForm]}
+                                onChange={e => setFaqForm({ ...faqForm, [`question${l}`]: e.target.value })}
+                                dir={l === 'Ar' ? 'rtl' : 'ltr'}
+                                style={{ ...inputS }}
+                                onFocus={ev => ev.currentTarget.style.borderColor = '#d00000'}
+                                onBlur={ev => ev.currentTarget.style.borderColor = '#e5e7eb'}
+                              />
+                            </div>
+                            <div>
+                              <label style={{ display: 'block', fontSize: 11, fontWeight: 700, color: '#64748b', textTransform: 'uppercase', letterSpacing: 0.8, marginBottom: 6 }}>Answer</label>
+                              <textarea
+                                value={faqForm[`answer${l}` as keyof typeof faqForm]}
+                                onChange={e => setFaqForm({ ...faqForm, [`answer${l}`]: e.target.value })}
+                                dir={l === 'Ar' ? 'rtl' : 'ltr'}
+                                rows={3}
+                                style={{ ...inputS, resize: 'vertical' }}
+                                onFocus={ev => ev.currentTarget.style.borderColor = '#d00000'}
+                                onBlur={ev => ev.currentTarget.style.borderColor = '#e5e7eb'}
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+
+                      <div style={{ display: 'flex', gap: 10, marginTop: 8 }}>
+                        <button onClick={() => setShowFAQForm(false)} style={{
+                          flex: 1, border: '1.5px solid #e2e8f0', background: '#fff', color: '#64748b',
+                          borderRadius: 12, padding: '13px 0', fontSize: 14, fontWeight: 600,
+                          cursor: 'pointer', fontFamily: 'Poppins, sans-serif',
+                        }}>Cancel</button>
+                        <button onClick={saveFAQ} style={{
+                          flex: 1, background: '#d00000', color: '#fff', border: 'none',
+                          borderRadius: 12, padding: '13px 0', fontSize: 14, fontWeight: 700,
+                          cursor: 'pointer', fontFamily: 'Poppins, sans-serif',
+                          boxShadow: '0 4px 16px rgba(208,0,0,0.3)',
+                        }}>{editingFAQ ? 'Save Changes' : 'Add Question'}</button>
                       </div>
                     </motion.div>
                   </motion.div>
