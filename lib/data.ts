@@ -148,7 +148,7 @@ export const testimonials: Testimonial[] = [
   {
     id: '4',
     nameEn: 'Khadija Tazi',
-    nameAr: 'خديجة الطازي',
+    nameAr: 'خديجة التازي',
     nameFr: 'Khadija Tazi',
     reviewEn: 'The VIP Hajj package was worth every penny. 5-star hotels in both Makkah and Madinah, meals provided, and a wonderful guide who explained everything beautifully.',
     reviewAr: 'باقة الحج VIP كانت تستحق كل قرش. فنادق خمس نجوم في مكة المكرمة والمدينة المنورة، وجبات مقدمة، ومرشد رائع شرح كل شيء بشكل جميل.',
