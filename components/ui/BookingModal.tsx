@@ -146,13 +146,14 @@ export default function BookingModal({ isOpen, onClose, packageName }: BookingMo
                   {step === 2 && (
                     <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
                       <div>
-                        <label style={labelStyle}>{b.packageType} *</label>
-                        <select style={selectStyle} value={form.packageType} onChange={e => update('packageType', e.target.value)}>
-                          <option value="" style={{ background: '#001d3d' }}>{b.selectPackage}</option>
-                          <option value="Umrah Economy" style={{ background: '#001d3d' }}>Umrah Economy</option>
-                          <option value="Umrah Premium" style={{ background: '#001d3d' }}>Umrah Premium</option>
-                          <option value="Hajj Package" style={{ background: '#001d3d' }}>Hajj Package</option>
-                        </select>
+                        <label style={labelStyle}>{b.packageType}</label>
+                        <div style={{
+                          ...inputStyle, display: 'flex', alignItems: 'center', gap: 8,
+                          background: 'rgba(184,150,12,0.1)', border: '1px solid rgba(184,150,12,0.35)',
+                        }}>
+                          <span style={{ color: '#b8960c', fontSize: 16 }}>✈️</span>
+                          <span style={{ color: '#fff', fontWeight: 600 }}>{packageName || form.packageType}</span>
+                        </div>
                       </div>
                       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
                         <div>
@@ -166,20 +167,6 @@ export default function BookingModal({ isOpen, onClose, packageName }: BookingMo
                           <select style={selectStyle} value={form.children} onChange={e => update('children', e.target.value)}>
                             {[0,1,2,3,4,5].map(n => <option key={n} value={n} style={{ background: '#001d3d' }}>{n} {n !== 1 ? b.children : b.child}</option>)}
                           </select>
-                        </div>
-                      </div>
-                      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
-                        <div>
-                          <label style={labelStyle}>{b.departureDate} *</label>
-                          <input style={inputStyle} type="date" value={form.departureDate} onChange={e => update('departureDate', e.target.value)}
-                            onFocus={e => e.currentTarget.style.borderColor = '#b8960c'}
-                            onBlur={e => e.currentTarget.style.borderColor = 'rgba(255,255,255,0.18)'} />
-                        </div>
-                        <div>
-                          <label style={labelStyle}>{b.returnDate}</label>
-                          <input style={inputStyle} type="date" value={form.returnDate} onChange={e => update('returnDate', e.target.value)}
-                            onFocus={e => e.currentTarget.style.borderColor = '#b8960c'}
-                            onBlur={e => e.currentTarget.style.borderColor = 'rgba(255,255,255,0.18)'} />
                         </div>
                       </div>
                       <div>
