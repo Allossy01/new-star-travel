@@ -17,7 +17,7 @@ export default function Testimonials() {
   const next = () => setCurrent((c) => (c + 1) % testimonials.length);
 
   return (
-    <section style={{ padding: '96px 0', background: '#fff' }}>
+    <section id="testimonials" style={{ padding: '96px 0', background: '#fff' }}>
       <div style={{ maxWidth: 900, margin: '0 auto', padding: '0 32px' }}>
         {/* Header */}
         <motion.div
