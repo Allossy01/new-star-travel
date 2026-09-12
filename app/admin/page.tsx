@@ -621,6 +621,64 @@ export default function AdminPage() {
             </motion.div>
           )}
 
+          {/* ── MESSAGES ── */}
+          {tab === 'messages' && (
+            <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
+              <p style={{ color: '#64748b', fontSize: 13, marginBottom: 24 }}>
+                {contactMessages.filter(m => !m.read).length} unread · {contactMessages.length} total
+              </p>
+
+              {contactMessages.length === 0 ? (
+                <div style={{ textAlign: 'center', padding: '60px 0', color: '#94a3b8' }}>
+                  <div style={{ fontSize: 48, marginBottom: 12 }}>📭</div>
+                  <p style={{ fontSize: 15, fontWeight: 600 }}>No messages yet</p>
+                  <p style={{ fontSize: 13, marginTop: 4 }}>Messages from the contact form will appear here</p>
+                </div>
+              ) : (
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+                  {contactMessages.map((msg, i) => (
+                    <motion.div key={msg.id} initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.05 }}
+                      style={{
+                        background: '#fff', borderRadius: 18, padding: '20px 24px',
+                        boxShadow: '0 2px 12px rgba(0,0,0,0.06)',
+                        border: msg.read ? '1px solid #f1f5f9' : '1.5px solid #d00000',
+                      }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: 16 }}>
+                        <div style={{ flex: 1 }}>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 8 }}>
+                            <div style={{
+                              width: 38, height: 38, borderRadius: 10, flexShrink: 0,
+                              background: 'linear-gradient(135deg, #001d3d, #003870)',
+                              display: 'flex', alignItems: 'center', justifyContent: 'center',
+                              color: '#fff', fontWeight: 700, fontSize: 15,
+                            }}>{msg.name[0].toUpperCase()}</div>
+                            <div>
+                              <div style={{ fontWeight: 700, color: '#001d3d', fontSize: 14 }}>{msg.name}</div>
+                              <div style={{ color: '#64748b', fontSize: 12 }}>📞 {msg.phone} · 📅 {msg.date}</div>
+                            </div>
+                            {!msg.read && (
+                              <span style={{ background: '#d00000', color: '#fff', borderRadius: 99, padding: '2px 10px', fontSize: 10, fontWeight: 700 }}>NEW</span>
+                            )}
+                          </div>
+                          <div style={{ background: '#f8fafc', borderRadius: 12, padding: '12px 14px', fontSize: 13, color: '#334155', lineHeight: 1.6 }}>
+                            {msg.message}
+                          </div>
+                        </div>
+                        {!msg.read && (
+                          <button onClick={() => markRead(msg.id)} style={{
+                            background: '#f0fdf4', color: '#15803d', border: '1.5px solid #bbf7d0',
+                            borderRadius: 10, padding: '8px 14px', fontSize: 11, fontWeight: 700,
+                            cursor: 'pointer', fontFamily: 'Poppins, sans-serif', flexShrink: 0, whiteSpace: 'nowrap',
+                          }}>✓ Mark Read</button>
+                        )}
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+              )}
+            </motion.div>
+          )}
+
           {/* ── BOOKINGS ── */}
           {tab === 'bookings' && (
             <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
