@@ -2,14 +2,17 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useLang } from '@/lib/LanguageContext';
+import { useMessages } from '@/lib/MessagesContext';
 
 export default function Contact() {
   const { t } = useLang();
+  const { addMessage } = useMessages();
   const [form, setForm] = useState({ name: '', phone: '', message: '' });
   const [sent, setSent] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    addMessage(form.name, form.phone, form.message);
     setSent(true);
     setTimeout(() => setSent(false), 3000);
     setForm({ name: '', phone: '', message: '' });
