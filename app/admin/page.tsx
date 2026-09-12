@@ -112,6 +112,7 @@ export default function AdminPage() {
     { id: 'bookings', label: 'Bookings', icon: '📋', count: bookings.filter(b => b.status === 'pending').length },
     { id: 'faq', label: 'FAQ', icon: '❓', count: faqs.length },
     { id: 'subscribers', label: 'Subscribers', icon: '📧', count: subscribers.length },
+    { id: 'messages', label: 'Messages', icon: '✉️', count: contactMessages.filter(m => !m.read).length },
   ];
 
   const stats = [
@@ -219,7 +220,7 @@ export default function AdminPage() {
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 32 }}>
             <div>
               <h1 style={{ fontSize: 24, fontWeight: 800, color: '#001d3d', margin: 0 }}>
-                {tab === 'dashboard' ? 'Dashboard' : tab === 'packages' ? 'Packages' : tab === 'faq' ? 'FAQ' : tab === 'subscribers' ? 'Subscribers' : 'Bookings'}
+                {tab === 'dashboard' ? 'Dashboard' : tab === 'packages' ? 'Packages' : tab === 'faq' ? 'FAQ' : tab === 'subscribers' ? 'Subscribers' : tab === 'messages' ? 'Messages' : 'Bookings'}
               </h1>
               <p style={{ color: '#94a3b8', fontSize: 13, margin: '4px 0 0' }}>New Star Travel · Admin Panel</p>
             </div>
