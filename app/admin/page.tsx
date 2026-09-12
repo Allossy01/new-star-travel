@@ -4,8 +4,9 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { type Package, type Booking } from '@/lib/data';
 import { useBookings } from '@/lib/BookingsContext';
 import { usePackages } from '@/lib/PackagesContext';
+import { useFAQ, type FAQItem } from '@/lib/FAQContext';
 
-type Tab = 'dashboard' | 'packages' | 'bookings';
+type Tab = 'dashboard' | 'packages' | 'bookings' | 'faq';
 type BookingStatus = Booking['status'];
 
 const statusColor: Record<BookingStatus, { bg: string; text: string; dot: string }> = {
@@ -15,11 +16,20 @@ const statusColor: Record<BookingStatus, { bg: string; text: string; dot: string
   paid:      { bg: '#eff6ff', text: '#1d4ed8', dot: '#3b82f6' },
 };
 
+const emptyFAQ = (): Omit<FAQItem, 'id' | 'order'> => ({
+  questionEn: '', questionFr: '', questionAr: '',
+  answerEn: '', answerFr: '', answerAr: '',
+});
+
 export default function AdminPage() {
   const [tab, setTab] = useState<Tab>('dashboard');
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const { packages: pkgs, addPackage, updatePackage, deletePackage } = usePackages();
   const { bookings, updateBookingStatus: ctxUpdateStatus } = useBookings();
+  const { faqs, addFAQ, updateFAQ, deleteFAQ } = useFAQ();
+  const [showFAQForm, setShowFAQForm] = useState(false);
+  const [editingFAQ, setEditingFAQ] = useState<FAQItem | null>(null);
+  const [faqForm, setFaqForm] = useState(emptyFAQ());
   const [statusFilter, setStatusFilter] = useState<BookingStatus | 'all'>('all');
   const [showPkgForm, setShowPkgForm] = useState(false);
   const [editingPkg, setEditingPkg] = useState<Package | null>(null);
