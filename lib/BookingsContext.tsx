@@ -41,8 +41,12 @@ export function BookingsProvider({ children }: { children: ReactNode }) {
     save(bookings.map(b => b.id === id ? { ...b, status } : b));
   };
 
+  const deleteBooking = (id: string) => {
+    save(bookings.filter(b => b.id !== id));
+  };
+
   return (
-    <BookingsContext.Provider value={{ bookings, addBooking, updateBookingStatus }}>
+    <BookingsContext.Provider value={{ bookings, addBooking, updateBookingStatus, deleteBooking }}>
       {children}
     </BookingsContext.Provider>
   );

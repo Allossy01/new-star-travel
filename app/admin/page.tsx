@@ -27,7 +27,7 @@ export default function AdminPage() {
   const [tab, setTab] = useState<Tab>('dashboard');
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const { packages: pkgs, addPackage, updatePackage, deletePackage } = usePackages();
-  const { bookings, updateBookingStatus: ctxUpdateStatus } = useBookings();
+  const { bookings, updateBookingStatus: ctxUpdateStatus, deleteBooking } = useBookings();
   const { faqs, addFAQ, updateFAQ, deleteFAQ } = useFAQ();
   const { subscribers } = useSubscribers();
   const { messages: contactMessages, markRead } = useMessages();
