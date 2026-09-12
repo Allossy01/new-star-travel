@@ -118,7 +118,7 @@ export const testimonials: Testimonial[] = [
     reviewAr: 'الحمد لله، كانت أفضل تجربة عمرة في حياتي. اهتمت نيو ستار للسياحة بكل شيء بشكل مثالي. كان الفندق على بعد خطوات من الحرم والفريق كان داعماً بشكل لا يصدق طوال الرحلة.',
     reviewFr: 'Alhamdulillah, la meilleure expérience d\'Omra de ma vie. New Star Travel a tout géré parfaitement. L\'hôtel était à deux pas du Haram et l\'équipe était incroyablement solidaire.',
     rating: 5,
-    city: 'Algiers',
+    city: 'Casablanca',
     avatar: 'A',
   },
   {
