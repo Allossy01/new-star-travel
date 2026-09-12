@@ -2,9 +2,11 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useLang } from '@/lib/LanguageContext';
+import { useSearch } from '@/lib/SearchContext';
 
 export default function QuickSearch() {
   const { t } = useLang();
+  const { setFilters } = useSearch();
   const [travelType, setTravelType] = useState('');
   const [date, setDate] = useState('');
   const [travelers, setTravelers] = useState('');
@@ -108,7 +110,10 @@ export default function QuickSearch() {
                 }}
                 whileHover={{ scale: 1.03, background: '#b00000' }}
                 whileTap={{ scale: 0.97 }}
-                onClick={() => document.getElementById('packages')?.scrollIntoView({ behavior: 'smooth' })}
+                onClick={() => {
+                  setFilters({ travelType, date, travelers });
+                  document.getElementById('packages')?.scrollIntoView({ behavior: 'smooth' });
+                }}
               >
                 {t.search.search}
               </motion.button>
