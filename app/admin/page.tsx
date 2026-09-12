@@ -141,16 +141,8 @@ export default function AdminPage() {
             {sidebarOpen && (
               <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
                 style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                <div style={{
-                  width: 36, height: 36, borderRadius: 10, flexShrink: 0,
-                  background: 'linear-gradient(135deg, #d00000, #b8960c)',
-                  display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  fontSize: 16, fontWeight: 700,
-                }}>★</div>
-                <div>
-                  <div style={{ fontSize: 13, fontWeight: 700, lineHeight: 1.2 }}>New Star</div>
-                  <div style={{ fontSize: 11, color: '#b8960c', fontWeight: 500 }}>Admin Panel</div>
-                </div>
+                <img src="/logo.png" alt="New Star Travel" style={{ height: 40, width: 'auto', objectFit: 'contain' }} />
+                <div style={{ fontSize: 11, color: '#b8960c', fontWeight: 500 }}>Admin Panel</div>
               </motion.div>
             )}
           </AnimatePresence>
