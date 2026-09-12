@@ -130,7 +130,7 @@ export const testimonials: Testimonial[] = [
     reviewAr: 'كنت قلقة من السفر وحدي لكن فريق نيو ستار جعلني أشعر بالأمان والتوجيه في كل خطوة. رحلة روحية احتفظ بها في قلبي للأبد.',
     reviewFr: 'J\'avais peur de voyager seule mais l\'équipe de New Star m\'a fait sentir en sécurité et guidée à chaque étape. Un voyage spirituel que je chérirai pour toujours.',
     rating: 5,
-    city: 'Oran',
+    city: 'Rabat',
     avatar: 'F',
   },
   {
@@ -142,7 +142,7 @@ export const testimonials: Testimonial[] = [
     reviewAr: 'خدمة ممتازة من البداية إلى النهاية. تمت معالجة التأشيرة في وقت قياسي ومرشدنا كان على دراية واسعة. أوصي بنيو ستار للسياحة للجميع.',
     reviewFr: 'Excellent service du début à la fin. Le visa a été traité en un temps record et notre guide était très compétent. Je recommande New Star Travel à tout le monde.',
     rating: 5,
-    city: 'Constantine',
+    city: 'Marrakech',
     avatar: 'M',
   },
   {
@@ -154,7 +154,7 @@ export const testimonials: Testimonial[] = [
     reviewAr: 'باقة الحج VIP كانت تستحق كل قرش. فنادق خمس نجوم في مكة المكرمة والمدينة المنورة، وجبات مقدمة، ومرشد رائع شرح كل شيء بشكل جميل.',
     reviewFr: 'Le forfait Hajj VIP valait chaque centime. Hôtels 5 étoiles à La Mecque et Médine, repas fournis, et un guide merveilleux qui a tout expliqué magnifiquement.',
     rating: 5,
-    city: 'Annaba',
+    city: 'Fès',
     avatar: 'N',
   },
 ];
