@@ -133,7 +133,7 @@ export default function Footer() {
                 }}
               />
               <motion.button
-                onClick={() => { setEmail(''); setSubscribed(true); setTimeout(() => setSubscribed(false), 2000); }}
+                onClick={() => { if (email.trim()) { addSubscriber(email.trim()); setEmail(''); setSubscribed(true); setTimeout(() => setSubscribed(false), 2000); } }}
                 style={{
                   background: '#d00000', color: '#fff', border: 'none',
                   borderRadius: 10, padding: '10px 16px', fontSize: 13,

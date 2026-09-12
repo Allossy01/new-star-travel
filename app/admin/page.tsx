@@ -5,8 +5,9 @@ import { type Package, type Booking } from '@/lib/data';
 import { useBookings } from '@/lib/BookingsContext';
 import { usePackages } from '@/lib/PackagesContext';
 import { useFAQ, type FAQItem } from '@/lib/FAQContext';
+import { useSubscribers } from '@/lib/SubscribersContext';
 
-type Tab = 'dashboard' | 'packages' | 'bookings' | 'faq';
+type Tab = 'dashboard' | 'packages' | 'bookings' | 'faq' | 'subscribers';
 type BookingStatus = Booking['status'];
 
 const statusColor: Record<BookingStatus, { bg: string; text: string; dot: string }> = {
