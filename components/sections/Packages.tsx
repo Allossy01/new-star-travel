@@ -246,13 +246,21 @@ export default function Packages() {
           </div>
         </div>
 
-        <motion.div layout style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: 28 }}>
-          <AnimatePresence mode="popLayout">
-            {filtered.map((pkg) => (
-              <PackageCard key={pkg.id} pkg={pkg} t={t} lang={lang} onBook={handleBook} onDetails={handleDetails} />
-            ))}
-          </AnimatePresence>
-        </motion.div>
+        {filtered.length === 0 ? (
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} style={{ textAlign: 'center', padding: '60px 0' }}>
+            <div style={{ fontSize: 52, marginBottom: 16 }}>🔍</div>
+            <p style={{ fontSize: 17, fontWeight: 700, color: '#001d3d', marginBottom: 8 }}>No packages found</p>
+            <p style={{ color: '#888', fontSize: 14 }}>Try different filters or browse all packages</p>
+          </motion.div>
+        ) : (
+          <motion.div layout style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: 28 }}>
+            <AnimatePresence mode="popLayout">
+              {filtered.map((pkg) => (
+                <PackageCard key={pkg.id} pkg={pkg} t={t} lang={lang} onBook={handleBook} onDetails={handleDetails} />
+              ))}
+            </AnimatePresence>
+          </motion.div>
+        )}
       </div>
 
       {detailsPkg && (
