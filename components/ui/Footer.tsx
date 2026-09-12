@@ -2,9 +2,11 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useLang } from '@/lib/LanguageContext';
+import { useSubscribers } from '@/lib/SubscribersContext';
 
 export default function Footer() {
   const { t } = useLang();
+  const { addSubscriber } = useSubscribers();
   const [email, setEmail] = useState('');
   const [subscribed, setSubscribed] = useState(false);
 
