@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { type Package, type Booking } from '@/lib/data';
 import { useBookings } from '@/lib/BookingsContext';
@@ -7,6 +7,88 @@ import { usePackages } from '@/lib/PackagesContext';
 import { useFAQ, type FAQItem } from '@/lib/FAQContext';
 import { useSubscribers } from '@/lib/SubscribersContext';
 import { useMessages } from '@/lib/MessagesContext';
+
+const ADMIN_USER = 'newstar';
+const ADMIN_PASS = 'nstar2025';
+
+function LoginGate({ onLogin }: { onLogin: () => void }) {
+  const [user, setUser] = useState('');
+  const [pass, setPass] = useState('');
+  const [error, setError] = useState(false);
+  const [shake, setShake] = useState(false);
+
+  const attempt = () => {
+    if (user === ADMIN_USER && pass === ADMIN_PASS) {
+      sessionStorage.setItem('nst_admin', '1');
+      onLogin();
+    } else {
+      setError(true);
+      setShake(true);
+      setTimeout(() => setShake(false), 500);
+    }
+  };
+
+  const inputS: React.CSSProperties = {
+    width: '100%', background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.18)',
+    color: '#fff', borderRadius: 12, padding: '13px 16px', fontSize: 14,
+    outline: 'none', boxSizing: 'border-box', fontFamily: 'Poppins, sans-serif',
+  };
+
+  return (
+    <div style={{ minHeight: '100vh', background: '#001d3d', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 24, fontFamily: 'Poppins, sans-serif' }}>
+      <motion.div
+        animate={shake ? { x: [-10, 10, -8, 8, -4, 4, 0] } : { x: 0 }}
+        transition={{ duration: 0.4 }}
+        style={{
+          width: '100%', maxWidth: 420, background: 'rgba(255,255,255,0.04)',
+          borderRadius: 24, padding: '40px 36px',
+          border: '1px solid rgba(255,255,255,0.1)',
+          boxShadow: '0 32px 80px rgba(0,0,0,0.5)',
+        }}
+      >
+        <div style={{ textAlign: 'center', marginBottom: 32 }}>
+          <img src="/logo.png" alt="New Star Travel" style={{ height: 60, width: 'auto', objectFit: 'contain', marginBottom: 16 }} />
+          <h1 style={{ color: '#fff', fontSize: 20, fontWeight: 800, margin: '0 0 6px' }}>Admin Panel</h1>
+          <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: 13, margin: 0 }}>Enter your credentials to continue</p>
+        </div>
+
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+          <div>
+            <label style={{ color: 'rgba(255,255,255,0.55)', fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: 1, display: 'block', marginBottom: 6 }}>Username</label>
+            <input
+              value={user} onChange={e => { setUser(e.target.value); setError(false); }}
+              onKeyDown={e => e.key === 'Enter' && attempt()}
+              placeholder="Username"
+              style={{ ...inputS, borderColor: error ? '#ef4444' : 'rgba(255,255,255,0.18)' }}
+              autoComplete="username"
+            />
+          </div>
+          <div>
+            <label style={{ color: 'rgba(255,255,255,0.55)', fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: 1, display: 'block', marginBottom: 6 }}>Password</label>
+            <input
+              type="password" value={pass} onChange={e => { setPass(e.target.value); setError(false); }}
+              onKeyDown={e => e.key === 'Enter' && attempt()}
+              placeholder="Password"
+              style={{ ...inputS, borderColor: error ? '#ef4444' : 'rgba(255,255,255,0.18)' }}
+              autoComplete="current-password"
+            />
+          </div>
+          {error && <p style={{ color: '#ef4444', fontSize: 13, fontWeight: 600, margin: 0 }}>❌ Incorrect username or password</p>}
+          <motion.button
+            onClick={attempt}
+            whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}
+            style={{
+              marginTop: 4, background: '#d00000', color: '#fff', border: 'none',
+              borderRadius: 12, padding: '14px 0', fontSize: 15, fontWeight: 700,
+              cursor: 'pointer', fontFamily: 'Poppins, sans-serif',
+              boxShadow: '0 4px 20px rgba(208,0,0,0.4)',
+            }}
+          >Sign In →</motion.button>
+        </div>
+      </motion.div>
+    </div>
+  );
+}
 
 type Tab = 'dashboard' | 'packages' | 'bookings' | 'faq' | 'subscribers' | 'messages';
 type BookingStatus = Booking['status'];
@@ -24,6 +106,18 @@ const emptyFAQ = (): Omit<FAQItem, 'id' | 'order'> => ({
 });
 
 export default function AdminPage() {
+  const [authed, setAuthed] = useState(false);
+
+  useEffect(() => {
+    if (sessionStorage.getItem('nst_admin') === '1') setAuthed(true);
+  }, []);
+
+  if (!authed) return <LoginGate onLogin={() => setAuthed(true)} />;
+
+  return <AdminContent />;
+}
+
+function AdminContent() {
   const [tab, setTab] = useState<Tab>('dashboard');
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const { packages: pkgs, addPackage, updatePackage, deletePackage } = usePackages();
@@ -209,6 +303,19 @@ export default function AdminPage() {
               {sidebarOpen && <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} style={{ fontFamily: 'Poppins, sans-serif' }}>View Site</motion.span>}
             </AnimatePresence>
           </a>
+          <button onClick={() => { sessionStorage.removeItem('nst_admin'); window.location.reload(); }} style={{
+            display: 'flex', alignItems: 'center', gap: 12, padding: '10px 12px', width: '100%',
+            borderRadius: 12, border: 'none', background: 'transparent', color: 'rgba(255,100,100,0.7)',
+            cursor: 'pointer', transition: 'all 0.2s', fontSize: 13, fontFamily: 'Poppins, sans-serif',
+          }}
+            onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = 'rgba(208,0,0,0.15)'; (e.currentTarget as HTMLElement).style.color = '#ef4444'; }}
+            onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = 'transparent'; (e.currentTarget as HTMLElement).style.color = 'rgba(255,100,100,0.7)'; }}
+          >
+            <span style={{ fontSize: 18, flexShrink: 0 }}>🔓</span>
+            <AnimatePresence>
+              {sidebarOpen && <motion.span initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>Sign Out</motion.span>}
+            </AnimatePresence>
+          </button>
         </div>
       </motion.aside>
 
