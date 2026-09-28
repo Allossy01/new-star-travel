@@ -8,8 +8,8 @@ import { useFAQ, type FAQItem } from '@/lib/FAQContext';
 import { useSubscribers } from '@/lib/SubscribersContext';
 import { useMessages } from '@/lib/MessagesContext';
 
-const ADMIN_USER = 'newstar';
-const ADMIN_PASS = 'nstar2025';
+const ADMIN_USER = 'NewStarTravel2025';
+const ADMIN_PASS = 'Allo@ssy01@';
 
 function LoginGate({ onLogin }: { onLogin: () => void }) {
   const [user, setUser] = useState('');
@@ -47,7 +47,9 @@ function LoginGate({ onLogin }: { onLogin: () => void }) {
         }}
       >
         <div style={{ textAlign: 'center', marginBottom: 32 }}>
-          <img src="/logo.png" alt="New Star Travel" style={{ height: 60, width: 'auto', objectFit: 'contain', marginBottom: 16 }} />
+          <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 16 }}>
+            <img src="/logo.png" alt="New Star Travel" style={{ height: 70, width: 'auto', objectFit: 'contain' }} />
+          </div>
           <h1 style={{ color: '#fff', fontSize: 20, fontWeight: 800, margin: '0 0 6px' }}>Admin Panel</h1>
           <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: 13, margin: 0 }}>Enter your credentials to continue</p>
         </div>
