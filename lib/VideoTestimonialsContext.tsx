@@ -5,7 +5,11 @@ import { supabase } from './supabase';
 export interface VideoTestimonial {
   id: string;
   clientName: string;
+  clientNameFr?: string;
+  clientNameAr?: string;
   feedback: string;
+  feedbackFr?: string;
+  feedbackAr?: string;
   videoUrl: string;
   order: number;
 }

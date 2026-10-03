@@ -145,9 +145,10 @@ function AdminContent() {
   const [imgMode, setImgMode] = useState<'url' | 'file'>('url');
   const [showVideoForm, setShowVideoForm] = useState(false);
   const [editingVideo, setEditingVideo] = useState<VideoTestimonial | null>(null);
-  const [videoForm, setVideoForm] = useState({ clientName: '', feedback: '', videoUrl: '' });
+  const [videoForm, setVideoForm] = useState({ clientName: '', clientNameFr: '', clientNameAr: '', feedback: '', feedbackFr: '', feedbackAr: '', videoUrl: '' });
   const [videoInputMode, setVideoInputMode] = useState<'youtube' | 'file'>('youtube');
   const [videoUploading, setVideoUploading] = useState(false);
+  const [videoLangTab, setVideoLangTab] = useState<'en' | 'fr' | 'ar'>('en');
 
   const totalRevenue = bookings.filter(b => b.status === 'paid').reduce((s, b) => s + b.totalPrice, 0);
   const filteredBookings = statusFilter === 'all' ? bookings : bookings.filter(b => b.status === statusFilter);
@@ -875,7 +876,7 @@ function AdminContent() {
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24 }}>
                 <p style={{ color: '#64748b', fontSize: 13, margin: 0 }}>{videos.length} video{videos.length !== 1 ? 's' : ''} published on the website</p>
                 <motion.button whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}
-                  onClick={() => { setEditingVideo(null); setVideoForm({ clientName: '', feedback: '', videoUrl: '' }); setShowVideoForm(true); }}
+                  onClick={() => { setEditingVideo(null); setVideoForm({ clientName: '', clientNameFr: '', clientNameAr: '', feedback: '', feedbackFr: '', feedbackAr: '', videoUrl: '' }); setVideoLangTab('en'); setShowVideoForm(true); }}
                   style={{ background: '#d00000', color: '#fff', border: 'none', borderRadius: 12, padding: '10px 20px', fontSize: 13, fontWeight: 700, cursor: 'pointer', fontFamily: 'Poppins, sans-serif' }}>
                   + Add Video
                 </motion.button>
@@ -894,12 +895,29 @@ function AdminContent() {
                         {editingVideo ? 'Edit Video' : 'Add Video'}
                       </h3>
                       <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+                        {/* Language tabs */}
+                        <div>
+                          <label style={{ display: 'block', fontSize: 11, fontWeight: 700, color: '#64748b', textTransform: 'uppercase' as const, letterSpacing: 0.8, marginBottom: 8 }}>Language</label>
+                          <div style={{ display: 'flex', gap: 6 }}>
+                            {(['en', 'fr', 'ar'] as const).map(l => (
+                              <button key={l} type="button" onClick={() => setVideoLangTab(l)}
+                                style={{ padding: '6px 16px', borderRadius: 8, fontSize: 12, fontWeight: 700, cursor: 'pointer', border: 'none', textTransform: 'uppercase' as const, background: videoLangTab === l ? '#001d3d' : '#f1f5f9', color: videoLangTab === l ? '#fff' : '#64748b', transition: 'all 0.2s' }}>
+                                {l}
+                              </button>
+                            ))}
+                          </div>
+                        </div>
+
                         {/* Client name */}
                         <div>
-                          <label style={{ display: 'block', fontSize: 11, fontWeight: 700, color: '#64748b', textTransform: 'uppercase' as const, letterSpacing: 0.8, marginBottom: 6 }}>Client Name</label>
-                          <input type="text" value={videoForm.clientName}
-                            onChange={e => setVideoForm({ ...videoForm, clientName: e.target.value })}
-                            style={{ width: '100%', border: '1.5px solid #e5e7eb', borderRadius: 10, padding: '10px 14px', fontSize: 14, outline: 'none', fontFamily: 'Poppins, sans-serif', boxSizing: 'border-box' as const }}
+                          <label style={{ display: 'block', fontSize: 11, fontWeight: 700, color: '#64748b', textTransform: 'uppercase' as const, letterSpacing: 0.8, marginBottom: 6 }}>
+                            Client Name ({videoLangTab.toUpperCase()})
+                          </label>
+                          <input type="text"
+                            value={videoLangTab === 'en' ? videoForm.clientName : videoLangTab === 'fr' ? videoForm.clientNameFr : videoForm.clientNameAr}
+                            onChange={e => setVideoForm({ ...videoForm, [videoLangTab === 'en' ? 'clientName' : videoLangTab === 'fr' ? 'clientNameFr' : 'clientNameAr']: e.target.value })}
+                            dir={videoLangTab === 'ar' ? 'rtl' : 'ltr'}
+                            style={{ width: '100%', border: '1.5px solid #e5e7eb', borderRadius: 10, padding: '10px 14px', fontSize: 14, outline: 'none', fontFamily: videoLangTab === 'ar' ? 'Tajawal, sans-serif' : 'Poppins, sans-serif', boxSizing: 'border-box' as const }}
                             onFocus={e => e.currentTarget.style.borderColor = '#d00000'}
                             onBlur={e => e.currentTarget.style.borderColor = '#e5e7eb'}
                           />
@@ -961,11 +979,15 @@ function AdminContent() {
 
                         {/* Feedback */}
                         <div>
-                          <label style={{ display: 'block', fontSize: 11, fontWeight: 700, color: '#64748b', textTransform: 'uppercase' as const, letterSpacing: 0.8, marginBottom: 6 }}>Client Feedback</label>
-                          <textarea value={videoForm.feedback}
-                            onChange={e => setVideoForm({ ...videoForm, feedback: e.target.value })}
-                            rows={3} placeholder="What the client said about their experience..."
-                            style={{ width: '100%', border: '1.5px solid #e5e7eb', borderRadius: 10, padding: '10px 14px', fontSize: 14, outline: 'none', fontFamily: 'Poppins, sans-serif', resize: 'vertical' as const, boxSizing: 'border-box' as const }}
+                          <label style={{ display: 'block', fontSize: 11, fontWeight: 700, color: '#64748b', textTransform: 'uppercase' as const, letterSpacing: 0.8, marginBottom: 6 }}>
+                            Client Feedback ({videoLangTab.toUpperCase()})
+                          </label>
+                          <textarea
+                            value={videoLangTab === 'en' ? videoForm.feedback : videoLangTab === 'fr' ? videoForm.feedbackFr : videoForm.feedbackAr}
+                            onChange={e => setVideoForm({ ...videoForm, [videoLangTab === 'en' ? 'feedback' : videoLangTab === 'fr' ? 'feedbackFr' : 'feedbackAr']: e.target.value })}
+                            rows={3} placeholder={videoLangTab === 'ar' ? 'ما قاله العميل عن تجربته...' : videoLangTab === 'fr' ? 'Ce que le client a dit de son expérience...' : 'What the client said about their experience...'}
+                            dir={videoLangTab === 'ar' ? 'rtl' : 'ltr'}
+                            style={{ width: '100%', border: '1.5px solid #e5e7eb', borderRadius: 10, padding: '10px 14px', fontSize: 14, outline: 'none', fontFamily: videoLangTab === 'ar' ? 'Tajawal, sans-serif' : 'Poppins, sans-serif', resize: 'vertical' as const, boxSizing: 'border-box' as const }}
                             onFocus={e => e.currentTarget.style.borderColor = '#d00000'}
                             onBlur={e => e.currentTarget.style.borderColor = '#e5e7eb'}
                           />
@@ -1019,7 +1041,7 @@ function AdminContent() {
                         <div style={{ fontWeight: 700, color: '#001d3d', marginBottom: 4 }}>{v.clientName}</div>
                         {v.feedback && <p style={{ color: '#64748b', fontSize: 13, margin: '0 0 12px', lineHeight: 1.5 }}>"{v.feedback}"</p>}
                         <div style={{ display: 'flex', gap: 8 }}>
-                          <button onClick={() => { setEditingVideo(v); setVideoForm({ clientName: v.clientName, feedback: v.feedback, videoUrl: v.videoUrl }); setShowVideoForm(true); }}
+                          <button onClick={() => { setEditingVideo(v); setVideoForm({ clientName: v.clientName, clientNameFr: v.clientNameFr || '', clientNameAr: v.clientNameAr || '', feedback: v.feedback, feedbackFr: v.feedbackFr || '', feedbackAr: v.feedbackAr || '', videoUrl: v.videoUrl }); setVideoLangTab('en'); setShowVideoForm(true); }}
                             style={{ flex: 1, padding: '7px 0', borderRadius: 8, border: '1.5px solid #e5e7eb', background: '#fff', fontSize: 12, fontWeight: 600, cursor: 'pointer', fontFamily: 'Poppins, sans-serif' }}>
                             ✏️ Edit
                           </button>

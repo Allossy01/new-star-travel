@@ -97,22 +97,25 @@ export default function VideoTestimonialsSection() {
                   <div style={{ display: 'flex', gap: 4, marginBottom: 10 }}>
                     {[...Array(5)].map((_, j) => <span key={j} style={{ color: '#b8960c', fontSize: 14 }}>★</span>)}
                   </div>
-                  {v.feedback && (
-                    <p style={{ color: '#475569', fontSize: 14, lineHeight: 1.7, margin: '0 0 14px', fontStyle: 'italic' }}>
-                      "{v.feedback}"
-                    </p>
-                  )}
-                  <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                    <div style={{
-                      width: 36, height: 36, borderRadius: '50%',
-                      background: 'linear-gradient(135deg, #d00000, #b8960c)',
-                      display: 'flex', alignItems: 'center', justifyContent: 'center',
-                      color: '#fff', fontWeight: 700, fontSize: 14, flexShrink: 0,
-                    }}>
-                      {v.clientName?.[0]?.toUpperCase() || '👤'}
-                    </div>
-                    <span style={{ fontWeight: 700, color: '#001d3d', fontSize: 15 }}>{v.clientName}</span>
-                  </div>
+                  {(() => {
+                    const fb = lang === 'ar' ? (v.feedbackAr || v.feedback) : lang === 'fr' ? (v.feedbackFr || v.feedback) : v.feedback;
+                    const name = lang === 'ar' ? (v.clientNameAr || v.clientName) : lang === 'fr' ? (v.clientNameFr || v.clientName) : v.clientName;
+                    return (
+                      <>
+                        {fb && (
+                          <p style={{ color: '#475569', fontSize: 14, lineHeight: 1.7, margin: '0 0 14px', fontStyle: 'italic', direction: lang === 'ar' ? 'rtl' : 'ltr' }}>
+                            "{fb}"
+                          </p>
+                        )}
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                          <div style={{ width: 36, height: 36, borderRadius: '50%', background: 'linear-gradient(135deg, #d00000, #b8960c)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontWeight: 700, fontSize: 14, flexShrink: 0 }}>
+                            {name?.[0]?.toUpperCase() || '👤'}
+                          </div>
+                          <span style={{ fontWeight: 700, color: '#001d3d', fontSize: 15 }}>{name}</span>
+                        </div>
+                      </>
+                    );
+                  })()}
                 </div>
               </motion.div>
             );
