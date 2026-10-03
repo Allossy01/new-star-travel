@@ -66,12 +66,17 @@ export function VideoTestimonialsProvider({ children }: { children: React.ReactN
   };
 
   const uploadVideoFile = async (file: File): Promise<string> => {
-    const sb = getSupabase();
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+    const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+    if (!supabaseUrl || !supabaseKey) throw new Error('Supabase env vars missing');
     const fileName = `${crypto.randomUUID()}-${file.name.replace(/\s+/g, '_')}`;
-    const { error } = await sb.storage.from('videos').upload(fileName, file, { contentType: file.type });
-    if (error) throw error;
-    const { data } = sb.storage.from('videos').getPublicUrl(fileName);
-    return data.publicUrl;
+    const res = await fetch(`${supabaseUrl}/storage/v1/object/videos/${fileName}`, {
+      method: 'POST',
+      headers: { 'Authorization': `Bearer ${supabaseKey}`, 'Content-Type': file.type },
+      body: file,
+    });
+    if (!res.ok) throw new Error(await res.text());
+    return `${supabaseUrl}/storage/v1/object/public/videos/${fileName}`;
   };
 
   return (
