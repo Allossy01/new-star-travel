@@ -5,6 +5,7 @@ import Packages from '@/components/sections/Packages';
 import WhyUs from '@/components/sections/WhyUs';
 import Testimonials from '@/components/sections/Testimonials';
 import FAQ from '@/components/sections/FAQ';
+import VideoTestimonialsSection from '@/components/sections/VideoTestimonials';
 import Contact from '@/components/sections/Contact';
 import Footer from '@/components/ui/Footer';
 import WhatsAppButton from '@/components/ui/WhatsAppButton';
@@ -19,6 +20,7 @@ export default function Home() {
       <WhyUs />
       <Testimonials />
       <FAQ />
+      <VideoTestimonialsSection />
       <Contact />
       <Footer />
       <WhatsAppButton />

@@ -7,6 +7,7 @@ import { usePackages } from '@/lib/PackagesContext';
 import { useFAQ, type FAQItem } from '@/lib/FAQContext';
 import { useSubscribers } from '@/lib/SubscribersContext';
 import { useMessages } from '@/lib/MessagesContext';
+import { useVideoTestimonials, type VideoTestimonial } from '@/lib/VideoTestimonialsContext';
 
 const ADMIN_USER = 'NewStarTravel2025';
 const ADMIN_PASS = 'Allo@ssy01@';
@@ -92,7 +93,7 @@ function LoginGate({ onLogin }: { onLogin: () => void }) {
   );
 }
 
-type Tab = 'dashboard' | 'packages' | 'bookings' | 'faq' | 'subscribers' | 'messages';
+type Tab = 'dashboard' | 'packages' | 'bookings' | 'faq' | 'subscribers' | 'messages' | 'videos';
 type BookingStatus = Booking['status'];
 
 const statusColor: Record<BookingStatus, { bg: string; text: string; dot: string }> = {
@@ -127,6 +128,7 @@ function AdminContent() {
   const { faqs, addFAQ, updateFAQ, deleteFAQ } = useFAQ();
   const { subscribers } = useSubscribers();
   const { messages: contactMessages, markRead } = useMessages();
+  const { videos, addVideo, updateVideo, deleteVideo } = useVideoTestimonials();
   const [showFAQForm, setShowFAQForm] = useState(false);
   const [editingFAQ, setEditingFAQ] = useState<FAQItem | null>(null);
   const [faqForm, setFaqForm] = useState(emptyFAQ());
@@ -141,6 +143,9 @@ function AdminContent() {
   const [includes, setIncludes] = useState<string[]>(['Round-trip flights', 'Hotel accommodation', 'Airport transfers', 'Visa assistance', 'Tour guide', 'Daily breakfast']);
   const [newInclude, setNewInclude] = useState('');
   const [imgMode, setImgMode] = useState<'url' | 'file'>('url');
+  const [showVideoForm, setShowVideoForm] = useState(false);
+  const [editingVideo, setEditingVideo] = useState<VideoTestimonial | null>(null);
+  const [videoForm, setVideoForm] = useState({ clientName: '', feedback: '', videoUrl: '' });
 
   const totalRevenue = bookings.filter(b => b.status === 'paid').reduce((s, b) => s + b.totalPrice, 0);
   const filteredBookings = statusFilter === 'all' ? bookings : bookings.filter(b => b.status === statusFilter);
@@ -211,6 +216,7 @@ function AdminContent() {
     { id: 'faq', label: 'FAQ', icon: '❓', count: faqs.length },
     { id: 'subscribers', label: 'Subscribers', icon: '📧', count: subscribers.length },
     { id: 'messages', label: 'Messages', icon: '✉️', count: contactMessages.filter(m => !m.read).length },
+    { id: 'videos', label: 'Videos', icon: '🎬', count: videos.length },
   ];
 
   const stats = [
@@ -331,7 +337,7 @@ function AdminContent() {
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 32 }}>
             <div>
               <h1 style={{ fontSize: 24, fontWeight: 800, color: '#001d3d', margin: 0 }}>
-                {tab === 'dashboard' ? 'Dashboard' : tab === 'packages' ? 'Packages' : tab === 'faq' ? 'FAQ' : tab === 'subscribers' ? 'Subscribers' : tab === 'messages' ? 'Messages' : 'Bookings'}
+                {tab === 'dashboard' ? 'Dashboard' : tab === 'packages' ? 'Packages' : tab === 'faq' ? 'FAQ' : tab === 'subscribers' ? 'Subscribers' : tab === 'messages' ? 'Messages' : tab === 'videos' ? 'Videos & Reviews' : 'Bookings'}
               </h1>
               <p style={{ color: '#94a3b8', fontSize: 13, margin: '4px 0 0' }}>New Star Travel · Admin Panel</p>
             </div>
@@ -855,6 +861,119 @@ function AdminContent() {
                         )}
                       </div>
                     </motion.div>
+                  ))}
+                </div>
+              )}
+            </motion.div>
+          )}
+
+          {/* ── VIDEOS ── */}
+          {tab === 'videos' && (
+            <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24 }}>
+                <p style={{ color: '#64748b', fontSize: 13, margin: 0 }}>{videos.length} video{videos.length !== 1 ? 's' : ''} published on the website</p>
+                <motion.button whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}
+                  onClick={() => { setEditingVideo(null); setVideoForm({ clientName: '', feedback: '', videoUrl: '' }); setShowVideoForm(true); }}
+                  style={{ background: '#d00000', color: '#fff', border: 'none', borderRadius: 12, padding: '10px 20px', fontSize: 13, fontWeight: 700, cursor: 'pointer', fontFamily: 'Poppins, sans-serif' }}>
+                  + Add Video
+                </motion.button>
+              </div>
+
+              {/* Video form modal */}
+              <AnimatePresence>
+                {showVideoForm && (
+                  <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+                    style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.5)', zIndex: 100, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 24 }}
+                    onClick={e => { if (e.target === e.currentTarget) setShowVideoForm(false); }}
+                  >
+                    <motion.div initial={{ scale: 0.9, y: 20 }} animate={{ scale: 1, y: 0 }} exit={{ scale: 0.9 }}
+                      style={{ background: '#fff', borderRadius: 20, padding: 32, width: '100%', maxWidth: 520, boxShadow: '0 32px 80px rgba(0,0,0,0.25)' }}>
+                      <h3 style={{ margin: '0 0 24px', fontSize: 18, fontWeight: 800, color: '#001d3d' }}>
+                        {editingVideo ? 'Edit Video' : 'Add Video'}
+                      </h3>
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+                        {[
+                          { key: 'clientName', label: 'Client Name' },
+                          { key: 'videoUrl', label: 'Video URL (YouTube)' },
+                        ].map(({ key, label }) => (
+                          <div key={key}>
+                            <label style={{ display: 'block', fontSize: 11, fontWeight: 700, color: '#64748b', textTransform: 'uppercase' as const, letterSpacing: 0.8, marginBottom: 6 }}>{label}</label>
+                            <input
+                              type="text"
+                              value={videoForm[key as keyof typeof videoForm]}
+                              onChange={e => setVideoForm({ ...videoForm, [key]: e.target.value })}
+                              placeholder={key === 'videoUrl' ? 'https://youtu.be/...' : ''}
+                              style={{ width: '100%', border: '1.5px solid #e5e7eb', borderRadius: 10, padding: '10px 14px', fontSize: 14, outline: 'none', fontFamily: 'Poppins, sans-serif', boxSizing: 'border-box' as const }}
+                              onFocus={e => e.currentTarget.style.borderColor = '#d00000'}
+                              onBlur={e => e.currentTarget.style.borderColor = '#e5e7eb'}
+                            />
+                          </div>
+                        ))}
+                        <div>
+                          <label style={{ display: 'block', fontSize: 11, fontWeight: 700, color: '#64748b', textTransform: 'uppercase' as const, letterSpacing: 0.8, marginBottom: 6 }}>Client Feedback</label>
+                          <textarea
+                            value={videoForm.feedback}
+                            onChange={e => setVideoForm({ ...videoForm, feedback: e.target.value })}
+                            rows={3}
+                            placeholder="What the client said about their experience..."
+                            style={{ width: '100%', border: '1.5px solid #e5e7eb', borderRadius: 10, padding: '10px 14px', fontSize: 14, outline: 'none', fontFamily: 'Poppins, sans-serif', resize: 'vertical' as const, boxSizing: 'border-box' as const }}
+                            onFocus={e => e.currentTarget.style.borderColor = '#d00000'}
+                            onBlur={e => e.currentTarget.style.borderColor = '#e5e7eb'}
+                          />
+                        </div>
+                        <div style={{ display: 'flex', gap: 10, justifyContent: 'flex-end', marginTop: 8 }}>
+                          <button onClick={() => setShowVideoForm(false)}
+                            style={{ padding: '10px 20px', borderRadius: 10, border: '1.5px solid #e5e7eb', background: '#fff', fontSize: 13, fontWeight: 600, cursor: 'pointer', fontFamily: 'Poppins, sans-serif' }}>
+                            Cancel
+                          </button>
+                          <button onClick={() => {
+                            if (!videoForm.videoUrl.trim() || !videoForm.clientName.trim()) return;
+                            if (editingVideo) updateVideo({ ...editingVideo, ...videoForm });
+                            else addVideo(videoForm);
+                            setShowVideoForm(false);
+                          }}
+                            style={{ padding: '10px 24px', borderRadius: 10, border: 'none', background: '#d00000', color: '#fff', fontSize: 13, fontWeight: 700, cursor: 'pointer', fontFamily: 'Poppins, sans-serif' }}>
+                            {editingVideo ? 'Save Changes' : 'Add Video'}
+                          </button>
+                        </div>
+                      </div>
+                    </motion.div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+
+              {videos.length === 0 ? (
+                <div style={{ textAlign: 'center', padding: '60px 0', color: '#94a3b8' }}>
+                  <div style={{ fontSize: 48, marginBottom: 12 }}>🎬</div>
+                  <p style={{ fontSize: 15, fontWeight: 600 }}>No videos yet</p>
+                  <p style={{ fontSize: 13 }}>Add a YouTube video with client feedback to display on the website</p>
+                </div>
+              ) : (
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: 20 }}>
+                  {videos.map(v => (
+                    <div key={v.id} style={{ background: '#fff', borderRadius: 16, border: '1.5px solid #e5e7eb', overflow: 'hidden', boxShadow: '0 2px 12px rgba(0,0,0,0.05)' }}>
+                      <div style={{ position: 'relative', paddingTop: '56.25%', background: '#001d3d' }}>
+                        <iframe
+                          src={`https://www.youtube.com/embed/${v.videoUrl.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([A-Za-z0-9_-]{11})/)?.[1] || v.videoUrl.match(/youtube\.com\/shorts\/([A-Za-z0-9_-]{11})/)?.[1] || ''}`}
+                          style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', border: 'none' }}
+                          allow="encrypted-media"
+                        />
+                      </div>
+                      <div style={{ padding: '14px 16px' }}>
+                        <div style={{ fontWeight: 700, color: '#001d3d', marginBottom: 4 }}>{v.clientName}</div>
+                        {v.feedback && <p style={{ color: '#64748b', fontSize: 13, margin: '0 0 12px', lineHeight: 1.5 }}>"{v.feedback}"</p>}
+                        <div style={{ display: 'flex', gap: 8 }}>
+                          <button onClick={() => { setEditingVideo(v); setVideoForm({ clientName: v.clientName, feedback: v.feedback, videoUrl: v.videoUrl }); setShowVideoForm(true); }}
+                            style={{ flex: 1, padding: '7px 0', borderRadius: 8, border: '1.5px solid #e5e7eb', background: '#fff', fontSize: 12, fontWeight: 600, cursor: 'pointer', fontFamily: 'Poppins, sans-serif' }}>
+                            ✏️ Edit
+                          </button>
+                          <button onClick={() => deleteVideo(v.id)}
+                            style={{ flex: 1, padding: '7px 0', borderRadius: 8, border: 'none', background: '#fef2f2', color: '#ef4444', fontSize: 12, fontWeight: 600, cursor: 'pointer', fontFamily: 'Poppins, sans-serif' }}>
+                            🗑 Delete
+                          </button>
+                        </div>
+                      </div>
+                    </div>
                   ))}
                 </div>
               )}
