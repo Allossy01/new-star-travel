@@ -20,10 +20,12 @@ interface Ctx {
   addVideo: (v: Omit<VideoTestimonial, 'id' | 'order'>) => void;
   updateVideo: (v: VideoTestimonial) => void;
   deleteVideo: (id: string) => void;
+  uploadVideoFile: (file: File) => Promise<string>;
 }
 
 const VideoTestimonialsContext = createContext<Ctx>({
   videos: [], addVideo: () => {}, updateVideo: () => {}, deleteVideo: () => {},
+  uploadVideoFile: async () => '',
 });
 
 export function VideoTestimonialsProvider({ children }: { children: React.ReactNode }) {
@@ -63,8 +65,17 @@ export function VideoTestimonialsProvider({ children }: { children: React.ReactN
     getSupabase().from('video_testimonials').delete().eq('id', id);
   };
 
+  const uploadVideoFile = async (file: File): Promise<string> => {
+    const sb = getSupabase();
+    const fileName = `${crypto.randomUUID()}-${file.name.replace(/\s+/g, '_')}`;
+    const { error } = await sb.storage.from('videos').upload(fileName, file, { contentType: file.type });
+    if (error) throw error;
+    const { data } = sb.storage.from('videos').getPublicUrl(fileName);
+    return data.publicUrl;
+  };
+
   return (
-    <VideoTestimonialsContext.Provider value={{ videos, addVideo, updateVideo, deleteVideo }}>
+    <VideoTestimonialsContext.Provider value={{ videos, addVideo, updateVideo, deleteVideo, uploadVideoFile }}>
       {children}
     </VideoTestimonialsContext.Provider>
   );

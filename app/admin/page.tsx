@@ -128,7 +128,7 @@ function AdminContent() {
   const { faqs, addFAQ, updateFAQ, deleteFAQ } = useFAQ();
   const { subscribers } = useSubscribers();
   const { messages: contactMessages, markRead } = useMessages();
-  const { videos, addVideo, updateVideo, deleteVideo } = useVideoTestimonials();
+  const { videos, addVideo, updateVideo, deleteVideo, uploadVideoFile } = useVideoTestimonials();
   const [showFAQForm, setShowFAQForm] = useState(false);
   const [editingFAQ, setEditingFAQ] = useState<FAQItem | null>(null);
   const [faqForm, setFaqForm] = useState(emptyFAQ());
@@ -945,13 +945,8 @@ function AdminContent() {
                                     if (!file) return;
                                     setVideoUploading(true);
                                     try {
-                                      const { createClient } = await import('@supabase/supabase-js');
-                                      const sb = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!);
-                                      const fileName = `${crypto.randomUUID()}-${file.name.replace(/\s+/g, '_')}`;
-                                      const { error } = await sb.storage.from('videos').upload(fileName, file, { contentType: file.type });
-                                      if (error) throw error;
-                                      const { data: urlData } = sb.storage.from('videos').getPublicUrl(fileName);
-                                      setVideoForm(f => ({ ...f, videoUrl: urlData.publicUrl }));
+                                      const publicUrl = await uploadVideoFile(file);
+                                      setVideoForm(f => ({ ...f, videoUrl: publicUrl }));
                                     } catch (err: any) {
                                       alert('Upload failed: ' + (err?.message || err?.error_description || JSON.stringify(err)));
                                     } finally {
