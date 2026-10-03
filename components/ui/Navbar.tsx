@@ -23,6 +23,7 @@ export default function Navbar() {
     { label: t.nav.hajj,     href: '#packages' },
     { label: t.nav.about,    href: '#why-us' },
     { label: 'FAQ',          href: '#faq' },
+    { label: 'Videos',       href: '#video-reviews' },
     { label: t.nav.contact,  href: '#contact' },
   ];
 
