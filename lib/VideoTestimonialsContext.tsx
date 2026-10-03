@@ -18,12 +18,12 @@ interface Ctx {
   videos: VideoTestimonial[];
   addVideo: (v: Omit<VideoTestimonial, 'id' | 'order'>) => void;
   updateVideo: (v: VideoTestimonial) => void;
-  deleteVideo: (id: string) => void;
+  deleteVideo: (id: string) => Promise<void>;
   uploadVideoFile: (file: File) => Promise<string>;
 }
 
 const VideoTestimonialsContext = createContext<Ctx>({
-  videos: [], addVideo: () => {}, updateVideo: () => {}, deleteVideo: () => {},
+  videos: [], addVideo: () => {}, updateVideo: () => {}, deleteVideo: async () => {},
   uploadVideoFile: async () => '',
 });
 
@@ -58,10 +58,10 @@ export function VideoTestimonialsProvider({ children }: { children: React.ReactN
     upsertOne(v);
   };
 
-  const deleteVideo = (id: string) => {
-    const updated = videos.filter(x => x.id !== id);
-    setVideos(updated);
-    supabase.from('video_testimonials').delete().eq('id', id);
+  const deleteVideo = async (id: string) => {
+    setVideos(prev => prev.filter(x => x.id !== id));
+    const { error } = await supabase.from('video_testimonials').delete().eq('id', id);
+    if (error) console.error('deleteVideo error:', error);
   };
 
   const uploadVideoFile = async (file: File): Promise<string> => {
