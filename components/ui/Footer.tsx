@@ -5,7 +5,7 @@ import { useLang } from '@/lib/LanguageContext';
 import { useSubscribers } from '@/lib/SubscribersContext';
 
 export default function Footer() {
-  const { t } = useLang();
+  const { t, lang } = useLang();
   const { addSubscriber } = useSubscribers();
   const [email, setEmail] = useState('');
   const [subscribed, setSubscribed] = useState(false);
@@ -118,7 +118,9 @@ export default function Footer() {
           {/* Newsletter */}
           <div>
             <h4 style={{ color: '#b8960c', fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: 2, marginBottom: 20 }}>{t.footer.newsletter}</h4>
-            <p style={{ color: 'rgba(255,255,255,0.38)', fontSize: 13, marginBottom: 14, lineHeight: 1.6 }}>Stay updated with our latest packages and travel tips.</p>
+            <p style={{ color: 'rgba(255,255,255,0.38)', fontSize: 13, marginBottom: 14, lineHeight: 1.6 }}>
+              {lang === 'ar' ? 'ابقَ على اطلاع بأحدث باقاتنا ونصائح السفر.' : lang === 'fr' ? 'Restez informé de nos derniers forfaits et conseils de voyage.' : 'Stay updated with our latest packages and travel tips.'}
+            </p>
             <div style={{ display: 'flex', gap: 8 }}>
               <input
                 type="email"
