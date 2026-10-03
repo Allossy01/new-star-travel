@@ -69,35 +69,29 @@ export default function VideoTestimonialsSection() {
               >
                 {/* Video */}
                 <div style={{ position: 'relative', paddingTop: '56.25%', background: '#001d3d' }}>
-                  {active === v.id ? (
-                    <iframe
-                      src={embedUrl + '&autoplay=1'}
-                      style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', border: 'none' }}
-                      allow="autoplay; encrypted-media"
-                      allowFullScreen
-                    />
+                  {embedUrl && embedUrl.includes('youtube.com/embed') ? (
+                    // YouTube
+                    active === v.id ? (
+                      <iframe src={embedUrl + '&autoplay=1'}
+                        style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', border: 'none' }}
+                        allow="autoplay; encrypted-media" allowFullScreen />
+                    ) : (
+                      <div onClick={() => setActive(v.id)}
+                        style={{ position: 'absolute', inset: 0, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(0,29,61,0.85)' }}>
+                        <iframe src={embedUrl}
+                          style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', border: 'none', pointerEvents: 'none' }}
+                          allow="encrypted-media" />
+                        <motion.div whileHover={{ scale: 1.1 }}
+                          style={{ position: 'relative', zIndex: 2, width: 60, height: 60, borderRadius: '50%', background: '#d00000', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 4px 24px rgba(208,0,0,0.5)' }}>
+                          <span style={{ fontSize: 22, marginLeft: 4 }}>▶</span>
+                        </motion.div>
+                      </div>
+                    )
                   ) : (
-                    <div
-                      onClick={() => setActive(v.id)}
-                      style={{ position: 'absolute', inset: 0, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(0,29,61,0.85)' }}
-                    >
-                      <iframe
-                        src={embedUrl!}
-                        style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', border: 'none', pointerEvents: 'none' }}
-                        allow="encrypted-media"
-                      />
-                      <motion.div
-                        whileHover={{ scale: 1.1 }}
-                        style={{
-                          position: 'relative', zIndex: 2,
-                          width: 60, height: 60, borderRadius: '50%',
-                          background: '#d00000', display: 'flex', alignItems: 'center', justifyContent: 'center',
-                          boxShadow: '0 4px 24px rgba(208,0,0,0.5)',
-                        }}
-                      >
-                        <span style={{ fontSize: 22, marginLeft: 4 }}>▶</span>
-                      </motion.div>
-                    </div>
+                    // Direct video file
+                    <video controls style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}>
+                      <source src={v.videoUrl} />
+                    </video>
                   )}
                 </div>
 

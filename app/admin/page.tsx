@@ -146,6 +146,8 @@ function AdminContent() {
   const [showVideoForm, setShowVideoForm] = useState(false);
   const [editingVideo, setEditingVideo] = useState<VideoTestimonial | null>(null);
   const [videoForm, setVideoForm] = useState({ clientName: '', feedback: '', videoUrl: '' });
+  const [videoInputMode, setVideoInputMode] = useState<'youtube' | 'file'>('youtube');
+  const [videoUploading, setVideoUploading] = useState(false);
 
   const totalRevenue = bookings.filter(b => b.status === 'paid').reduce((s, b) => s + b.totalPrice, 0);
   const filteredBookings = statusFilter === 'all' ? bookings : bookings.filter(b => b.status === statusFilter);
@@ -892,47 +894,100 @@ function AdminContent() {
                         {editingVideo ? 'Edit Video' : 'Add Video'}
                       </h3>
                       <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
-                        {[
-                          { key: 'clientName', label: 'Client Name' },
-                          { key: 'videoUrl', label: 'Video URL (YouTube)' },
-                        ].map(({ key, label }) => (
-                          <div key={key}>
-                            <label style={{ display: 'block', fontSize: 11, fontWeight: 700, color: '#64748b', textTransform: 'uppercase' as const, letterSpacing: 0.8, marginBottom: 6 }}>{label}</label>
-                            <input
-                              type="text"
-                              value={videoForm[key as keyof typeof videoForm]}
-                              onChange={e => setVideoForm({ ...videoForm, [key]: e.target.value })}
-                              placeholder={key === 'videoUrl' ? 'https://youtu.be/...' : ''}
+                        {/* Client name */}
+                        <div>
+                          <label style={{ display: 'block', fontSize: 11, fontWeight: 700, color: '#64748b', textTransform: 'uppercase' as const, letterSpacing: 0.8, marginBottom: 6 }}>Client Name</label>
+                          <input type="text" value={videoForm.clientName}
+                            onChange={e => setVideoForm({ ...videoForm, clientName: e.target.value })}
+                            style={{ width: '100%', border: '1.5px solid #e5e7eb', borderRadius: 10, padding: '10px 14px', fontSize: 14, outline: 'none', fontFamily: 'Poppins, sans-serif', boxSizing: 'border-box' as const }}
+                            onFocus={e => e.currentTarget.style.borderColor = '#d00000'}
+                            onBlur={e => e.currentTarget.style.borderColor = '#e5e7eb'}
+                          />
+                        </div>
+
+                        {/* Video source toggle */}
+                        <div>
+                          <label style={{ display: 'block', fontSize: 11, fontWeight: 700, color: '#64748b', textTransform: 'uppercase' as const, letterSpacing: 0.8, marginBottom: 8 }}>Video Source</label>
+                          <div style={{ display: 'flex', gap: 8, marginBottom: 10 }}>
+                            {(['youtube', 'file'] as const).map(m => (
+                              <button key={m} type="button" onClick={() => { setVideoInputMode(m); setVideoForm(f => ({ ...f, videoUrl: '' })); }}
+                                style={{ padding: '7px 16px', borderRadius: 8, fontSize: 12, fontWeight: 600, cursor: 'pointer', border: 'none', background: videoInputMode === m ? '#d00000' : '#f1f5f9', color: videoInputMode === m ? '#fff' : '#64748b', transition: 'all 0.2s' }}>
+                                {m === 'youtube' ? '▶ YouTube URL' : '📁 My Files'}
+                              </button>
+                            ))}
+                          </div>
+
+                          {videoInputMode === 'youtube' ? (
+                            <input type="text" value={videoForm.videoUrl}
+                              onChange={e => setVideoForm({ ...videoForm, videoUrl: e.target.value })}
+                              placeholder="https://youtu.be/... or https://youtube.com/watch?v=..."
                               style={{ width: '100%', border: '1.5px solid #e5e7eb', borderRadius: 10, padding: '10px 14px', fontSize: 14, outline: 'none', fontFamily: 'Poppins, sans-serif', boxSizing: 'border-box' as const }}
                               onFocus={e => e.currentTarget.style.borderColor = '#d00000'}
                               onBlur={e => e.currentTarget.style.borderColor = '#e5e7eb'}
                             />
-                          </div>
-                        ))}
+                          ) : (
+                            <div>
+                              <label style={{
+                                display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10,
+                                border: '2px dashed #e5e7eb', borderRadius: 12, padding: '20px',
+                                cursor: videoUploading ? 'wait' : 'pointer', background: '#f8fafc', transition: 'border-color 0.2s',
+                              }}
+                                onMouseEnter={e => (e.currentTarget as HTMLElement).style.borderColor = '#d00000'}
+                                onMouseLeave={e => (e.currentTarget as HTMLElement).style.borderColor = '#e5e7eb'}
+                              >
+                                <span style={{ fontSize: 28 }}>🎬</span>
+                                <span style={{ fontSize: 13, color: '#64748b', fontWeight: 500 }}>
+                                  {videoUploading ? 'Uploading...' : videoForm.videoUrl ? '✅ Video uploaded' : 'Click to choose a video file (MP4, MOV…)'}
+                                </span>
+                                <input type="file" accept="video/*" style={{ display: 'none' }} disabled={videoUploading}
+                                  onChange={async e => {
+                                    const file = e.target.files?.[0];
+                                    if (!file) return;
+                                    setVideoUploading(true);
+                                    try {
+                                      const { createClient } = await import('@supabase/supabase-js');
+                                      const sb = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!);
+                                      const fileName = `${crypto.randomUUID()}-${file.name.replace(/\s+/g, '_')}`;
+                                      const { error } = await sb.storage.from('videos').upload(fileName, file, { contentType: file.type });
+                                      if (error) throw error;
+                                      const { data: urlData } = sb.storage.from('videos').getPublicUrl(fileName);
+                                      setVideoForm(f => ({ ...f, videoUrl: urlData.publicUrl }));
+                                    } catch (err) {
+                                      alert('Upload failed. Make sure the Supabase "videos" storage bucket exists and is public.');
+                                    } finally {
+                                      setVideoUploading(false);
+                                    }
+                                  }}
+                                />
+                              </label>
+                            </div>
+                          )}
+                        </div>
+
+                        {/* Feedback */}
                         <div>
                           <label style={{ display: 'block', fontSize: 11, fontWeight: 700, color: '#64748b', textTransform: 'uppercase' as const, letterSpacing: 0.8, marginBottom: 6 }}>Client Feedback</label>
-                          <textarea
-                            value={videoForm.feedback}
+                          <textarea value={videoForm.feedback}
                             onChange={e => setVideoForm({ ...videoForm, feedback: e.target.value })}
-                            rows={3}
-                            placeholder="What the client said about their experience..."
+                            rows={3} placeholder="What the client said about their experience..."
                             style={{ width: '100%', border: '1.5px solid #e5e7eb', borderRadius: 10, padding: '10px 14px', fontSize: 14, outline: 'none', fontFamily: 'Poppins, sans-serif', resize: 'vertical' as const, boxSizing: 'border-box' as const }}
                             onFocus={e => e.currentTarget.style.borderColor = '#d00000'}
                             onBlur={e => e.currentTarget.style.borderColor = '#e5e7eb'}
                           />
                         </div>
+
                         <div style={{ display: 'flex', gap: 10, justifyContent: 'flex-end', marginTop: 8 }}>
                           <button onClick={() => setShowVideoForm(false)}
                             style={{ padding: '10px 20px', borderRadius: 10, border: '1.5px solid #e5e7eb', background: '#fff', fontSize: 13, fontWeight: 600, cursor: 'pointer', fontFamily: 'Poppins, sans-serif' }}>
                             Cancel
                           </button>
-                          <button onClick={() => {
+                          <button disabled={videoUploading} onClick={() => {
                             if (!videoForm.videoUrl.trim() || !videoForm.clientName.trim()) return;
                             if (editingVideo) updateVideo({ ...editingVideo, ...videoForm });
                             else addVideo(videoForm);
                             setShowVideoForm(false);
                           }}
-                            style={{ padding: '10px 24px', borderRadius: 10, border: 'none', background: '#d00000', color: '#fff', fontSize: 13, fontWeight: 700, cursor: 'pointer', fontFamily: 'Poppins, sans-serif' }}>
+                            style={{ padding: '10px 24px', borderRadius: 10, border: 'none', background: videoUploading ? '#94a3b8' : '#d00000', color: '#fff', fontSize: 13, fontWeight: 700, cursor: videoUploading ? 'wait' : 'pointer', fontFamily: 'Poppins, sans-serif' }}>
                             {editingVideo ? 'Save Changes' : 'Add Video'}
                           </button>
                         </div>
@@ -953,11 +1008,17 @@ function AdminContent() {
                   {videos.map(v => (
                     <div key={v.id} style={{ background: '#fff', borderRadius: 16, border: '1.5px solid #e5e7eb', overflow: 'hidden', boxShadow: '0 2px 12px rgba(0,0,0,0.05)' }}>
                       <div style={{ position: 'relative', paddingTop: '56.25%', background: '#001d3d' }}>
-                        <iframe
-                          src={`https://www.youtube.com/embed/${v.videoUrl.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([A-Za-z0-9_-]{11})/)?.[1] || v.videoUrl.match(/youtube\.com\/shorts\/([A-Za-z0-9_-]{11})/)?.[1] || ''}`}
-                          style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', border: 'none' }}
-                          allow="encrypted-media"
-                        />
+                        {v.videoUrl.includes('youtube.com') || v.videoUrl.includes('youtu.be') ? (
+                          <iframe
+                            src={`https://www.youtube.com/embed/${v.videoUrl.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([A-Za-z0-9_-]{11})/)?.[1] || v.videoUrl.match(/youtube\.com\/shorts\/([A-Za-z0-9_-]{11})/)?.[1] || ''}`}
+                            style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', border: 'none' }}
+                            allow="encrypted-media"
+                          />
+                        ) : (
+                          <video style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} controls>
+                            <source src={v.videoUrl} />
+                          </video>
+                        )}
                       </div>
                       <div style={{ padding: '14px 16px' }}>
                         <div style={{ fontWeight: 700, color: '#001d3d', marginBottom: 4 }}>{v.clientName}</div>
