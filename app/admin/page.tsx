@@ -140,6 +140,7 @@ function AdminContent() {
   });
   const [includes, setIncludes] = useState<string[]>(['Round-trip flights', 'Hotel accommodation', 'Airport transfers', 'Visa assistance', 'Tour guide', 'Daily breakfast']);
   const [newInclude, setNewInclude] = useState('');
+  const [imgMode, setImgMode] = useState<'url' | 'file'>('url');
 
   const totalRevenue = bookings.filter(b => b.status === 'paid').reduce((s, b) => s + b.totalPrice, 0);
   const filteredBookings = statusFilter === 'all' ? bookings : bookings.filter(b => b.status === statusFilter);
@@ -159,6 +160,7 @@ function AdminContent() {
     });
     setIncludes(pkg.includes && pkg.includes.length > 0 ? [...pkg.includes] : ['Round-trip flights', 'Hotel accommodation', 'Airport transfers', 'Visa assistance', 'Tour guide', 'Daily breakfast']);
     setNewInclude('');
+    setImgMode('url');
     setShowPkgForm(true);
   };
 
@@ -518,7 +520,6 @@ function AdminContent() {
                           { key: 'durationDays', label: 'Days', span: false },
                           { key: 'departure', label: 'Departure Date', span: false },
                           { key: 'returnDate', label: 'Return Date', span: false },
-                          { key: 'image', label: 'Image URL', span: true },
                         ].map(({ key, label, span }) => (
                           <div key={key} style={{ gridColumn: span ? '1 / -1' : undefined }}>
                             <label style={{ display: 'block', fontSize: 11, fontWeight: 700, color: '#64748b', textTransform: 'uppercase', letterSpacing: 0.8, marginBottom: 6 }}>{label}</label>
@@ -532,6 +533,78 @@ function AdminContent() {
                             />
                           </div>
                         ))}
+
+                        {/* Image field */}
+                        <div style={{ gridColumn: '1 / -1' }}>
+                          <label style={{ display: 'block', fontSize: 11, fontWeight: 700, color: '#64748b', textTransform: 'uppercase', letterSpacing: 0.8, marginBottom: 8 }}>Package Image</label>
+                          <div style={{ display: 'flex', gap: 8, marginBottom: 10 }}>
+                            {(['url', 'file'] as const).map(mode => (
+                              <button key={mode} type="button"
+                                onClick={() => setImgMode(mode)}
+                                style={{
+                                  padding: '6px 16px', borderRadius: 8, fontSize: 12, fontWeight: 600, cursor: 'pointer', border: 'none',
+                                  background: imgMode === mode ? '#d00000' : '#f1f5f9',
+                                  color: imgMode === mode ? '#fff' : '#64748b',
+                                  transition: 'all 0.2s',
+                                }}
+                              >{mode === 'url' ? '🔗 Image URL' : '📁 My Files'}</button>
+                            ))}
+                          </div>
+                          {imgMode === 'url' ? (
+                            <input
+                              type="text"
+                              placeholder="https://example.com/image.jpg"
+                              value={pkgForm.image}
+                              onChange={e => setPkgForm({ ...pkgForm, image: e.target.value })}
+                              style={inputS}
+                              onFocus={e => e.currentTarget.style.borderColor = '#d00000'}
+                              onBlur={e => e.currentTarget.style.borderColor = '#e5e7eb'}
+                            />
+                          ) : (
+                            <div>
+                              <label style={{
+                                display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10,
+                                border: '2px dashed #e5e7eb', borderRadius: 12, padding: '20px',
+                                cursor: 'pointer', background: '#f8fafc', transition: 'border-color 0.2s',
+                              }}
+                                onMouseEnter={e => (e.currentTarget as HTMLElement).style.borderColor = '#d00000'}
+                                onMouseLeave={e => (e.currentTarget as HTMLElement).style.borderColor = '#e5e7eb'}
+                              >
+                                <span style={{ fontSize: 28 }}>🖼️</span>
+                                <span style={{ fontSize: 13, color: '#64748b', fontWeight: 500 }}>Click to choose an image from your computer</span>
+                                <input type="file" accept="image/*" style={{ display: 'none' }}
+                                  onChange={e => {
+                                    const file = e.target.files?.[0];
+                                    if (!file) return;
+                                    const reader = new FileReader();
+                                    reader.onload = ev => {
+                                      const src = ev.target?.result as string;
+                                      const img = new Image();
+                                      img.onload = () => {
+                                        const canvas = document.createElement('canvas');
+                                        const MAX = 900;
+                                        const ratio = Math.min(MAX / img.width, MAX / img.height, 1);
+                                        canvas.width = img.width * ratio;
+                                        canvas.height = img.height * ratio;
+                                        canvas.getContext('2d')!.drawImage(img, 0, 0, canvas.width, canvas.height);
+                                        setPkgForm(f => ({ ...f, image: canvas.toDataURL('image/jpeg', 0.82) }));
+                                      };
+                                      img.src = src;
+                                    };
+                                    reader.readAsDataURL(file);
+                                  }}
+                                />
+                              </label>
+                            </div>
+                          )}
+                          {pkgForm.image && (
+                            <div style={{ marginTop: 10, position: 'relative', display: 'inline-block' }}>
+                              <img src={pkgForm.image} alt="preview" style={{ height: 90, width: 140, objectFit: 'cover', borderRadius: 10, border: '2px solid #e5e7eb', display: 'block' }} />
+                              <button type="button" onClick={() => setPkgForm(f => ({ ...f, image: '' }))}
+                                style={{ position: 'absolute', top: -8, right: -8, width: 22, height: 22, borderRadius: '50%', background: '#ef4444', color: '#fff', border: 'none', cursor: 'pointer', fontSize: 13, display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 700 }}>×</button>
+                            </div>
+                          )}
+                        </div>
                         <div>
                           <label style={{ display: 'block', fontSize: 11, fontWeight: 700, color: '#64748b', textTransform: 'uppercase', letterSpacing: 0.8, marginBottom: 6 }}>Type</label>
                           <select value={pkgForm.type} onChange={e => setPkgForm({ ...pkgForm, type: e.target.value as any })} style={inputS}>
