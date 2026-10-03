@@ -952,8 +952,8 @@ function AdminContent() {
                                       if (error) throw error;
                                       const { data: urlData } = sb.storage.from('videos').getPublicUrl(fileName);
                                       setVideoForm(f => ({ ...f, videoUrl: urlData.publicUrl }));
-                                    } catch (err) {
-                                      alert('Upload failed. Make sure the Supabase "videos" storage bucket exists and is public.');
+                                    } catch (err: any) {
+                                      alert('Upload failed: ' + (err?.message || err?.error_description || JSON.stringify(err)));
                                     } finally {
                                       setVideoUploading(false);
                                     }
