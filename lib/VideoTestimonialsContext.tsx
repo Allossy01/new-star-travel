@@ -2,7 +2,7 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import { createClient } from '@supabase/supabase-js';
 
-const supabase = createClient(
+const getSupabase = () => createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 );
@@ -31,7 +31,7 @@ export function VideoTestimonialsProvider({ children }: { children: React.ReactN
 
   useEffect(() => {
     (async () => {
-      const { data } = await supabase.from('video_testimonials').select('*');
+      const { data } = await getSupabase().from('video_testimonials').select('*');
       if (data && data.length > 0) {
         const items = data.map((r: any) => ({ id: r.id, ...r.data })) as VideoTestimonial[];
         items.sort((a, b) => a.order - b.order);
@@ -44,7 +44,7 @@ export function VideoTestimonialsProvider({ children }: { children: React.ReactN
     setVideos(items);
     for (const v of items) {
       const { id, ...data } = v;
-      await supabase.from('video_testimonials').upsert({ id, data }, { onConflict: 'id' });
+      await getSupabase().from('video_testimonials').upsert({ id, data }, { onConflict: 'id' });
     }
   };
 
@@ -60,7 +60,7 @@ export function VideoTestimonialsProvider({ children }: { children: React.ReactN
   const deleteVideo = (id: string) => {
     const updated = videos.filter(x => x.id !== id);
     setVideos(updated);
-    supabase.from('video_testimonials').delete().eq('id', id);
+    getSupabase().from('video_testimonials').delete().eq('id', id);
   };
 
   return (
