@@ -22,14 +22,11 @@ function getEmbedUrl(url: string): string | null {
 
 export default function VideoTestimonialsSection() {
   const { videos } = useVideoTestimonials();
-  const { lang } = useLang();
+  const { t, lang } = useLang();
   const isRtl = lang === 'ar';
   const [active, setActive] = useState<string | null>(null);
 
   if (videos.length === 0) return null;
-
-  const title = lang === 'ar' ? 'آراء عملائنا' : lang === 'fr' ? 'Avis de nos clients' : 'Client Reviews';
-  const subtitle = lang === 'ar' ? 'شاهد تجارب حجاجنا ومعتمرينا' : lang === 'fr' ? 'Découvrez les expériences de nos pèlerins' : 'Watch real experiences from our pilgrims';
 
   return (
     <section id="video-reviews" style={{ padding: '96px 0', background: 'linear-gradient(180deg, #f8fafc 0%, #fff 100%)' }} dir={isRtl ? 'rtl' : 'ltr'}>
@@ -44,10 +41,10 @@ export default function VideoTestimonialsSection() {
           transition={{ duration: 0.7 }}
         >
           <span style={{ color: '#d00000', fontSize: 12, fontWeight: 700, textTransform: 'uppercase', letterSpacing: 3, display: 'block', marginBottom: 8 }}>
-            {lang === 'ar' ? 'فيديوهات' : 'Videos'}
+            {t.videos.tag}
           </span>
-          <h2 style={{ fontSize: 'clamp(28px, 4vw, 44px)', fontWeight: 800, color: '#001d3d', marginBottom: 12 }}>{title}</h2>
-          <p style={{ color: '#888', margin: 0, fontSize: 16 }}>{subtitle}</p>
+          <h2 style={{ fontSize: 'clamp(28px, 4vw, 44px)', fontWeight: 800, color: '#001d3d', marginBottom: 12 }}>{t.videos.title}</h2>
+          <p style={{ color: '#888', margin: 0, fontSize: 16 }}>{t.videos.subtitle}</p>
         </motion.div>
 
         {/* Grid */}

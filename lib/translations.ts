@@ -140,6 +140,11 @@ export const translations = {
       subscribe: 'Subscribe',
       rights: '© 2026 New Star Travel. All rights reserved.',
     },
+    videos: {
+      tag: 'Videos',
+      title: 'Client Reviews',
+      subtitle: 'Watch real experiences from our pilgrims',
+    },
     booking: {
       title: 'Book Your Journey',
       received: '🎉 Booking Received!',
@@ -330,6 +335,11 @@ export const translations = {
       subscribe: 'S\'abonner',
       rights: '© 2026 New Star Travel. Tous droits réservés.',
     },
+    videos: {
+      tag: 'Vidéos',
+      title: 'Avis de nos clients',
+      subtitle: 'Découvrez les expériences de nos pèlerins',
+    },
     booking: {
       title: 'Réserver Votre Voyage',
       received: '🎉 Réservation Reçue!',
@@ -519,6 +529,11 @@ export const translations = {
       newsletterPlaceholder: 'أدخل بريدك الإلكتروني',
       subscribe: 'اشترك',
       rights: '© 2026 نيو ستار للسياحة. جميع الحقوق محفوظة.',
+    },
+    videos: {
+      tag: 'فيديوهات',
+      title: 'آراء عملائنا',
+      subtitle: 'شاهد تجارب حجاجنا ومعتمرينا',
     },
     booking: {
       title: 'احجز رحلتك',
