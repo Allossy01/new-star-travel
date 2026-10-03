@@ -216,7 +216,7 @@ function AdminContent() {
     { id: 'faq', label: 'FAQ', icon: '❓', count: faqs.length },
     { id: 'subscribers', label: 'Subscribers', icon: '📧', count: subscribers.length },
     { id: 'messages', label: 'Messages', icon: '✉️', count: contactMessages.filter(m => !m.read).length },
-    { id: 'videos', label: 'Videos', icon: '🎬', count: videos.length },
+    { id: 'videos', label: 'Videos & Reviews', icon: '🎬', count: videos.length },
   ];
 
   const stats = [
