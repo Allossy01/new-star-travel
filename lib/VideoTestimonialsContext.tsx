@@ -37,21 +37,21 @@ export function VideoTestimonialsProvider({ children }: { children: React.ReactN
     })();
   }, []);
 
-  const save = async (items: VideoTestimonial[]) => {
-    setVideos(items);
-    for (const v of items) {
-      const { id, ...data } = v;
-      await supabase.from('video_testimonials').upsert({ id, data }, { onConflict: 'id' });
-    }
+  const upsertOne = async (v: VideoTestimonial) => {
+    const { id, ...data } = v;
+    const { error } = await supabase.from('video_testimonials').upsert({ id, data }, { onConflict: 'id' });
+    if (error) console.error('video_testimonials upsert error:', error);
   };
 
   const addVideo = (v: Omit<VideoTestimonial, 'id' | 'order'>) => {
     const newItem: VideoTestimonial = { ...v, id: crypto.randomUUID(), order: videos.length };
-    save([...videos, newItem]);
+    setVideos(prev => [...prev, newItem]);
+    upsertOne(newItem);
   };
 
   const updateVideo = (v: VideoTestimonial) => {
-    save(videos.map(x => x.id === v.id ? v : x));
+    setVideos(prev => prev.map(x => x.id === v.id ? v : x));
+    upsertOne(v);
   };
 
   const deleteVideo = (id: string) => {
